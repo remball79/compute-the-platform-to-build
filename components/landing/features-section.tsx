@@ -6,20 +6,20 @@ const features = [
   {
     number: "01",
     title: "AI & Autonomous Systems",
-    description: "We build AI systems that operate within real business processes — connecting enterprise data, applications, and workflows to understand context and execute actions.",
-    capabilities: ["AI Agents & Automation", "Enterprise Knowledge & RAG", "AI Orchestration"],
+    description: "We embed intelligent agents and enterprise RAG into core operational workflows, enabling systems to understand business context, automate complex processes, and support faster, more informed decisions.",
+    capabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
   },
   {
     number: "02",
-    title: "Data & Integration Infrastructure",
-    description: "We build the interoperability layer that connects enterprise systems, data, and applications — enabling reliable information flow across the business.",
-    capabilities: ["Enterprise Integrations", "Data Pipelines & Intelligence", "APIs & Composable Architecture"],
+    title: "Data Intelligence & Integration",
+    description: "We architect interoperability layers, composable APIs, and unified data pipelines to eliminate operational silos and enable reliable information flow across enterprise systems.",
+    capabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
   },
   {
     number: "03",
     title: "Software & Commerce Engineering",
-    description: "We build digital platforms engineered to integrate deeply with business operations, customer journeys, and enterprise systems.",
-    capabilities: ["Web & Mobile Engineering", "Composable Commerce Platforms", "Enterprise Applications"],
+    description: "We engineer scalable web, mobile, and composable commerce platforms built around real business operations, connecting customer experiences with enterprise systems and workflows.",
+    capabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
   },
 ];
 
@@ -197,10 +197,10 @@ export function FeaturesSection() {
                   </p>
                   <div>
                     <span className="block text-sm text-muted-foreground font-mono">Core capabilities</span>
-                    <ul className="mt-2 max-w-xs space-y-1.5">
+                    <ul className="mt-2 max-w-xs lg:max-w-sm space-y-1.5">
                       {feature.capabilities.map((item) => (
                         <li key={item} className="flex items-start gap-2.5 text-lg lg:text-xl font-display leading-relaxed">
-                          <span className="w-1 h-1 rounded-full bg-foreground/40 shrink-0 mt-[0.65em]" />
+                          <span className="w-[3px] h-[3px] rounded-full bg-foreground/30 shrink-0 mt-[0.65em]" />
                           {item}
                         </li>
                       ))}
