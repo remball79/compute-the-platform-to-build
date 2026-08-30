@@ -165,16 +165,16 @@ export function FeaturesSection() {
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
-                Intelligent
+                What we
                 <br />
-                <span className="text-muted-foreground">workers.</span>
+                <span className="text-muted-foreground">build</span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pb-4">
               <p className={`text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               }`}>
-                Deploy autonomous AI agents that execute complex tasks across distributed infrastructure. No supervision required.
+                From AI and data to commerce, enterprise platforms, and cloud infrastructure, we design, integrate, and evolve the systems that drive modern businesses.
               </p>
             </div>
           </div>
