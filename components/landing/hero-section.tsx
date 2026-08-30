@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 
-const words = ["automate", "delegate", "execute", "scale"];
+const words = ["connect", "automate", "scale"];
 
 function BlurWord({ word, trigger }: { word: string; trigger: number }) {
   const letters = word.split("");
@@ -174,7 +174,7 @@ export function HeroSection() {
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-white/60">
             <span className="w-8 h-px bg-white/30" />
-            Intelligent systems for modern enterprises
+            Modern Engineering for Business Transformation
           </span>
         </div>
         
@@ -185,9 +185,8 @@ export function HeroSection() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <span className="block whitespace-nowrap">Distributed compute,</span>
+              <span className="block whitespace-nowrap">We build intelligent systems that:</span>
             <span className="block whitespace-nowrap">
-              agents that{" "}
               <span className="relative inline-block">
                 <BlurWord word={words[wordIndex]} trigger={wordIndex} />
               </span>
