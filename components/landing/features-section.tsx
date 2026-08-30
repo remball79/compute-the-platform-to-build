@@ -5,27 +5,21 @@ import { useEffect, useRef, useState } from "react";
 const features = [
   {
     number: "01",
-    title: "Autonomous Execution",
-    description: "Deploy AI agents that work independently. They analyze, decide, and execute complex multi-step tasks without human intervention.",
-    stats: { value: "99.7%", label: "task completion" },
+    title: "AI & Autonomous Systems",
+    description: "We build AI systems that operate within real business processes — connecting enterprise data, applications, and workflows to understand context and execute actions.",
+    capabilities: "Agents · RAG · Orchestration",
   },
   {
     number: "02",
-    title: "Distributed Computing",
-    description: "Offload compute-heavy tasks to our global network. Your agents run on optimized infrastructure across 50+ regions worldwide.",
-    stats: { value: "50+", label: "global regions" },
+    title: "Data & Integration Infrastructure",
+    description: "We build the interoperability layer that connects enterprise systems, data, and applications — enabling reliable information flow across the business.",
+    capabilities: "iPaaS · Data Pipelines · Composable Architecture",
   },
   {
     number: "03",
-    title: "Multi-Agent Orchestration",
-    description: "Coordinate teams of specialized agents. They communicate, delegate, and collaborate to solve complex problems together.",
-    stats: { value: "1000x", label: "parallel execution" },
-  },
-  {
-    number: "04",
-    title: "Secure Sandboxing",
-    description: "Each agent runs in isolated environments. Full audit trails, encrypted execution, and zero data leakage between tasks.",
-    stats: { value: "0", label: "data breaches" },
+    title: "Software & Commerce Engineering",
+    description: "We build digital platforms engineered to integrate deeply with business operations, customer journeys, and enterprise systems.",
+    capabilities: "Composable Commerce · Enterprise Applications · Cloud Native",
   },
 ];
 
@@ -181,45 +175,47 @@ export function FeaturesSection() {
         </div>
 
         {/* Bento Grid Layout */}
-        <div className="grid lg:grid-cols-12 gap-4 lg:gap-6">
-          {/* Large feature card */}
-          <div 
-            className={`lg:col-span-12 relative bg-black border border-foreground/10 min-h-[500px] overflow-hidden group transition-all duration-700 flex ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-            }`}
-            onMouseEnter={() => setActiveFeature(0)}
-          >
-            {/* Left: text content */}
-            <div className="relative flex-1 p-8 lg:p-12 bg-black">
-              <ParticleVisualization />
-              <div className="relative z-10">
-                <span className="font-mono text-sm text-muted-foreground">{features[0].number}</span>
-                <h3 className="text-3xl lg:text-4xl font-display mt-4 mb-6 group-hover:translate-x-2 transition-transform duration-500">
-                  {features[0].title}
-                </h3>
-                <p className="text-lg text-muted-foreground leading-relaxed max-w-md mb-8">
-                  {features[0].description}
-                </p>
-                <div>
-                  <span className="text-5xl lg:text-6xl font-display">{features[0].stats.value}</span>
-                  <span className="block text-sm text-muted-foreground font-mono mt-2">{features[0].stats.label}</span>
+        <div className="grid lg:grid-cols-12 gap-10 md:gap-16 lg:gap-24">
+          {features.map((feature, index) => (
+            <div
+              key={feature.number}
+              className={`lg:col-span-12 relative bg-black border border-foreground/10 min-h-[500px] overflow-hidden group transition-all duration-700 flex ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
+              onMouseEnter={() => setActiveFeature(index)}
+            >
+              {/* Left: text content */}
+              <div className="relative flex-1 p-8 lg:p-12 bg-black">
+                <ParticleVisualization />
+                <div className="relative z-10">
+                  <span className="font-mono text-sm text-muted-foreground">{feature.number}</span>
+                  <h3 className="text-3xl lg:text-4xl font-display mt-4 mb-6 group-hover:translate-x-2 transition-transform duration-500">
+                    {feature.title}
+                  </h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed max-w-md mb-8">
+                    {feature.description}
+                  </p>
+                  <div>
+                    <span className="text-2xl lg:text-3xl font-display leading-snug">{feature.capabilities}</span>
+                    <span className="block text-sm text-muted-foreground font-mono mt-2">Core capabilities</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right: mirrored image, full height */}
-            <div className="hidden lg:block relative w-[42%] shrink-0 overflow-hidden">
-              <img
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png"
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-                style={{ transform: "scaleX(-1)" }}
-              />
-              {/* Fade left edge into black */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
+              {/* Right: mirrored image, full height */}
+              <div className="hidden lg:block relative w-[42%] shrink-0 overflow-hidden">
+                <img
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  style={{ transform: "scaleX(-1)" }}
+                />
+                {/* Fade left edge into black */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
