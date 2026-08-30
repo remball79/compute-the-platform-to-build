@@ -62,7 +62,7 @@ function BlurWord({ word, trigger }: { word: string; trigger: number }) {
   }, [trigger]);
 
   // gradient colours cycling across letter positions
-  const gradientColors = ["#eca8d6", "#a78bfa", "#67e8f9", "#fbbf24", "#eca8d6"];
+  const gradientColors = ["#203A84", "#3157D5", "#4E6FD0", "#1FB7D8", "#2FAF9A", "#70B637", "#86D94A"];
 
   return (
     <>
