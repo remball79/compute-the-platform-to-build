@@ -7,19 +7,19 @@ const features = [
     number: "01",
     title: "AI & Autonomous Systems",
     description: "We build AI systems that operate within real business processes — connecting enterprise data, applications, and workflows to understand context and execute actions.",
-    capabilities: "Agents · RAG · Orchestration",
+    capabilities: ["AI Agents & Automation", "Enterprise Knowledge & RAG", "AI Orchestration"],
   },
   {
     number: "02",
     title: "Data & Integration Infrastructure",
     description: "We build the interoperability layer that connects enterprise systems, data, and applications — enabling reliable information flow across the business.",
-    capabilities: "iPaaS · Data Pipelines · Composable Architecture",
+    capabilities: ["Enterprise Integrations", "Data Pipelines & Intelligence", "APIs & Composable Architecture"],
   },
   {
     number: "03",
     title: "Software & Commerce Engineering",
     description: "We build digital platforms engineered to integrate deeply with business operations, customer journeys, and enterprise systems.",
-    capabilities: "Composable Commerce · Enterprise Applications · Cloud Native",
+    capabilities: ["Web & Mobile Engineering", "Composable Commerce Platforms", "Enterprise Applications"],
   },
 ];
 
@@ -197,7 +197,14 @@ export function FeaturesSection() {
                   </p>
                   <div>
                     <span className="block text-sm text-muted-foreground font-mono">Core capabilities</span>
-                    <span className="block text-lg lg:text-xl font-display leading-relaxed mt-2 max-w-xs">{feature.capabilities}</span>
+                    <ul className="mt-2 max-w-xs space-y-1.5">
+                      {feature.capabilities.map((item) => (
+                        <li key={item} className="flex items-start gap-2.5 text-lg lg:text-xl font-display leading-relaxed">
+                          <span className="w-1 h-1 rounded-full bg-foreground/40 shrink-0 mt-[0.65em]" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div>
