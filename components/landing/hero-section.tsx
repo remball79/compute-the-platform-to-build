@@ -120,7 +120,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[85svh] sm:min-h-screen flex flex-col justify-between sm:justify-center items-start overflow-hidden bg-black">
+    <section className="relative min-h-[100svh] sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -173,20 +173,20 @@ export function HeroSection() {
           }`}
         >
           <span className="inline-flex items-center gap-3 text-sm font-mono text-white/60">
-            <span className="w-8 h-px bg-white/30" />
+            <span className="w-12 sm:w-8 h-px bg-white/30" />
             Modern Engineering for Business Transformation
           </span>
         </div>
         
         {/* Main headline */}
-        <div className="mb-12">
-          <h1 
-            className={`text-left text-[clamp(2rem,6vw,7rem)] font-display leading-[0.92] tracking-tight text-white transition-all duration-1000 ${
+        <div className="mb-7 sm:mb-12">
+          <h1
+            className={`text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+          }`}
           >
-              <span className="block whitespace-nowrap">We build intelligent</span>
-            <span className="block whitespace-nowrap">systems that{" "}
+              <span className="block whitespace-normal sm:whitespace-nowrap">We build intelligent</span>
+            <span className="block whitespace-normal sm:whitespace-nowrap">systems that{" "}
               <span className="relative inline-block">
                 <BlurWord word={words[wordIndex]} trigger={wordIndex} />
               </span>
@@ -200,7 +200,7 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-base lg:text-lg font-normal text-white/50 max-w-[46ch] leading-relaxed">
+          <p className="text-xl sm:text-base lg:text-lg font-normal text-white/50 max-w-[46ch] leading-relaxed">
             We engineer and integrate AI, data, commerce, and enterprise platforms into scalable, connected digital systems.
           </p>
         </div>
@@ -209,7 +209,7 @@ export function HeroSection() {
       
       {/* Stats — 3 metrics static, no auto-scroll */}
       <div
-        className={`pb-12 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+        className={`mt-7 pb-14 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -221,7 +221,7 @@ export function HeroSection() {
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col gap-2">
               <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap">{stat.value}</span>
-              <span className="text-xs text-white/50 leading-tight">
+              <span className="text-xs text-white sm:text-white/50 leading-tight">
                 {stat.label}
               </span>
             </div>
