@@ -120,7 +120,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden bg-black">
+    <section className="relative min-h-0 sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -164,7 +164,7 @@ export function HeroSection() {
         ))}
       </div>
       
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 py-32 lg:py-40">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 pt-[120px] pb-0 sm:py-32 lg:py-40">
         <div className="lg:max-w-[55%]">
         {/* Eyebrow */}
         <div 
@@ -196,7 +196,7 @@ export function HeroSection() {
 
         {/* Supporting subcopy */}
         <div
-          className={`mb-12 transition-all duration-1000 delay-150 ${
+          className={`mb-0 sm:mb-12 transition-all duration-1000 delay-150 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -208,19 +208,19 @@ export function HeroSection() {
       </div>
       
       {/* Stats — 3 metrics static, no auto-scroll */}
-      <div 
-        className={`absolute bottom-12 left-0 right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+      <div
+        className={`mt-7 pb-12 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto flex items-start gap-10 lg:gap-20">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-4 sm:flex sm:items-start sm:gap-10 lg:gap-20">
           {[
             { value: "100+", label: "Digital projects delivered" },
             { value: "90%", label: "Repeat business" },
             { value: "15+ years", label: "Technology experience" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col gap-2">
-              <span className="text-3xl lg:text-4xl font-display text-white">{stat.value}</span>
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap">{stat.value}</span>
               <span className="text-xs text-white/50 leading-tight">
                 {stat.label}
               </span>
