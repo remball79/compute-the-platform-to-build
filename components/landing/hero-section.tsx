@@ -120,7 +120,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-0 sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
+    <section className="relative min-h-[85svh] sm:min-h-screen flex flex-col justify-between sm:justify-center items-start overflow-hidden bg-black">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -209,7 +209,7 @@ export function HeroSection() {
       
       {/* Stats — 3 metrics static, no auto-scroll */}
       <div
-        className={`mt-7 pb-12 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+        className={`pb-12 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
