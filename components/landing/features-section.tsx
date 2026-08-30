@@ -192,12 +192,12 @@ export function FeaturesSection() {
                   <h3 className="text-3xl lg:text-4xl font-display mt-4 mb-6 group-hover:translate-x-2 transition-transform duration-500">
                     {feature.title}
                   </h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed max-w-md mb-8">
+                  <p className="text-lg text-muted-foreground leading-relaxed max-w-md mb-7">
                     {feature.description}
                   </p>
                   <div>
                     <span className="block text-sm text-muted-foreground font-mono">Core capabilities</span>
-                    <span className="block text-lg lg:text-xl font-display leading-relaxed mt-2">{feature.capabilities}</span>
+                    <span className="block text-lg lg:text-xl font-display leading-relaxed mt-2 max-w-xs">{feature.capabilities}</span>
                   </div>
                 </div>
               </div>
