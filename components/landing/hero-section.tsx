@@ -193,6 +193,17 @@ export function HeroSection() {
             </span>
           </h1>
         </div>
+
+        {/* Supporting subcopy */}
+        <div
+          className={`mb-12 transition-all duration-1000 delay-150 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          <p className="text-base lg:text-lg font-normal text-white/50 max-w-[46ch] leading-relaxed">
+            We engineer and integrate AI, data, commerce, and enterprise platforms into scalable, connected digital systems.
+          </p>
+        </div>
         </div>
       </div>
       
