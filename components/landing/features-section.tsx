@@ -196,8 +196,8 @@ export function FeaturesSection() {
                     {feature.description}
                   </p>
                   <div>
-                    <span className="text-2xl lg:text-3xl font-display leading-snug">{feature.capabilities}</span>
-                    <span className="block text-sm text-muted-foreground font-mono mt-2">Core capabilities</span>
+                    <span className="block text-sm text-muted-foreground font-mono">Core capabilities</span>
+                    <span className="block text-lg lg:text-xl font-display leading-relaxed mt-2">{feature.capabilities}</span>
                   </div>
                 </div>
               </div>
