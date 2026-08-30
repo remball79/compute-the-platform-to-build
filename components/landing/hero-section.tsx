@@ -186,7 +186,7 @@ export function HeroSection() {
             }`}
           >
               <span className="block whitespace-nowrap">We build intelligent</span>
-            <span className="block whitespace-nowrap">systems that: 
+            <span className="block whitespace-nowrap">systems that{" "}
               <span className="relative inline-block">
                 <BlurWord word={words[wordIndex]} trigger={wordIndex} />
               </span>
