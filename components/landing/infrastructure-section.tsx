@@ -2,11 +2,11 @@
 
 import { useEffect, useState, useRef } from "react";
 
-const regions = [
-  { name: "North America", nodes: 12, status: "operational" },
-  { name: "Europe", nodes: 8, status: "operational" },
-  { name: "Asia Pacific", nodes: 6, status: "operational" },
-  { name: "South America", nodes: 3, status: "operational" },
+const techCards = [
+  { label: "EXPERIENCE", title: "Commerce", description: "Web · Mobile" },
+  { label: "BUSINESS PLATFORMS", title: "ERP · CRM", description: "OMS · CMS" },
+  { label: "INTEGRATION", title: "APIs", description: "Middleware · ETL" },
+  { label: "DATA & CLOUD", title: "Analytics", description: "AI · Cloud" },
 ];
 
 export function InfrastructureSection() {
@@ -28,7 +28,7 @@ export function InfrastructureSection() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveRegion((prev) => (prev + 1) % regions.length);
+      setActiveRegion((prev) => (prev + 1) % techCards.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -174,9 +174,9 @@ export function InfrastructureSection() {
         <div className={`mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
-          {regions.map((region, index) => (
+          {techCards.map((card, index) => (
             <div
-              key={region.name}
+              key={card.title}
               className={`p-6 border transition-all duration-300 cursor-default ${
                 activeRegion === index 
                   ? "border-foreground/30 bg-foreground/[0.04]" 
@@ -185,14 +185,14 @@ export function InfrastructureSection() {
             >
               <div className="flex items-center gap-2 mb-3">
                 <span className={`w-2 h-2 rounded-full transition-colors ${
-                  activeRegion === index ? "bg-[#eca8d6]" : "bg-foreground/20"
+                  activeRegion === index ? "bg-[#3157D5]" : "bg-foreground/20"
                 }`} />
                 <span className="text-xs font-mono text-muted-foreground uppercase tracking-wider">
-                  {region.status}
+                  {card.label}
                 </span>
               </div>
-              <span className="font-medium block mb-1">{region.name}</span>
-              <span className="text-sm text-muted-foreground">{region.nodes} nodes</span>
+              <span className="font-medium block mb-1">{card.title}</span>
+              <span className="text-sm text-muted-foreground">{card.description}</span>
             </div>
           ))}
         </div>
