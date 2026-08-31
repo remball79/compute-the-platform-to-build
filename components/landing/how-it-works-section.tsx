@@ -119,19 +119,19 @@ export function HowItWorksSection() {
               className={`relative text-left p-8 lg:p-12 border transition-all duration-500 ${
                 activeStep === index 
                   ? "bg-[#000000] border-white/60" 
-                  : "bg-[#000000] border-white/25 hover:border-white/50"
+                  : "bg-[#000000] border-white/25 hover:border-[#3157D5]"
               }`}
             >
               {/* Step number with animated line */}
               <div className="flex items-center gap-4 mb-8">
                 <span className={`text-4xl font-display transition-colors duration-300 ${
-                  activeStep === index ? "text-[#eca8d6]" : "text-white/20"
+                  activeStep === index ? "text-[#203A84]" : "text-white/20"
                 }`}>
                   {step.number}
                 </span>
                 <div className="flex-1 h-px bg-white/10 overflow-hidden">
                   {activeStep === index && (
-                    <div className="h-full bg-[#eca8d6]/50 animate-progress" />
+                    <div className="h-full bg-[#203A84]/50 animate-progress" />
                   )}
                 </div>
               </div>
@@ -152,7 +152,7 @@ export function HowItWorksSection() {
               </p>
 
               {/* Active indicator */}
-              <div className={`absolute bottom-0 left-0 right-0 h-1 bg-[#eca8d6] transition-transform duration-500 origin-left ${
+              <div className={`absolute bottom-0 left-0 right-0 h-1 bg-[#203A84] transition-transform duration-500 origin-left ${
                 activeStep === index ? "scale-x-100" : "scale-x-0"
               }`} />
             </button>
