@@ -116,10 +116,10 @@ export function HowItWorksSection() {
               key={step.number}
               type="button"
               onClick={() => setActiveStep(index)}
-              className={`relative text-left p-8 lg:p-12 border transition-all duration-500 ${
+              className={`relative text-left p-8 lg:p-12 border-t border-l border-r transition-all duration-500 ${
                 activeStep === index 
-                  ? "bg-[#000000] border-white/60" 
-                  : "bg-[#000000] border-white/25 hover:border-[#203A84]"
+                  ? "bg-[#000000] border-t-white/60 border-l-white/60 border-r-white/60 border-b-4 border-b-[#3157D5]" 
+                  : "bg-[#000000] border-b border-t-white/25 border-l-white/25 border-r-white/25 border-b-white/25 hover:border-t-[#203A84] hover:border-l-[#203A84] hover:border-r-[#203A84] hover:border-b-[#203A84]"
               }`}
             >
               {/* Step number with animated line */}
@@ -150,11 +150,6 @@ export function HowItWorksSection() {
               }`}>
                 {step.description}
               </p>
-
-              {/* Active indicator */}
-              <div className={`absolute bottom-0 left-0 right-0 h-1 bg-[#3157D5] transition-transform duration-500 origin-left ${
-                activeStep === index ? "scale-x-100" : "scale-x-0"
-              }`} />
             </button>
           ))}
         </div>
