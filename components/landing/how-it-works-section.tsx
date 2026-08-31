@@ -118,7 +118,7 @@ export function HowItWorksSection() {
               onClick={() => setActiveStep(index)}
               className={`relative text-left p-8 lg:p-12 border-t border-l border-r transition-all duration-500 ${
                 activeStep === index 
-                  ? "bg-[#000000] border-t-white/60 border-l-white/60 border-r-white/60 border-b-4 border-b-[#3157D5]" 
+                  ? "bg-[#000000] border-t-white/60 border-l-white/60 border-r-white/60 border-b border-b-transparent" 
                   : "bg-[#000000] border-b border-t-white/25 border-l-white/25 border-r-white/25 border-b-white/25 hover:border-t-[#203A84] hover:border-l-[#203A84] hover:border-r-[#203A84] hover:border-b-[#203A84]"
               }`}
             >
@@ -150,6 +150,11 @@ export function HowItWorksSection() {
               }`}>
                 {step.description}
               </p>
+
+              {/* Active bottom accent — animated overlay, replaces the neutral border visually */}
+              <div className={`absolute -bottom-px left-0 right-0 h-1 bg-[#3157D5] transition-transform duration-500 origin-left z-[2] ${
+                activeStep === index ? "scale-x-100" : "scale-x-0"
+              }`} />
             </button>
           ))}
         </div>
