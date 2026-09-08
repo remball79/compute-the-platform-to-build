@@ -12,6 +12,22 @@ const navLinks = [
   { name: "Security",      href: "#security"      },
 ];
 
+function TalkLabel() {
+  return (
+    <span className="relative block overflow-hidden">
+      <span className="block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/talk:-translate-y-full group-focus-visible/talk:-translate-y-full motion-reduce:transform-none motion-reduce:transition-none">
+        Let´s Talk
+      </span>
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 block translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/talk:translate-y-0 group-focus-visible/talk:translate-y-0 motion-reduce:hidden"
+      >
+        Let´s Talk
+      </span>
+    </span>
+  );
+}
+
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -74,9 +90,9 @@ export function Navigation() {
             </a>
             <Button
               size="sm"
-              className={`rounded-full transition-all duration-500 ${isScrolled ? "bg-foreground hover:bg-foreground/90 text-background px-4 h-8 text-xs" : "bg-white hover:bg-white/90 text-black px-6"}`}
+              className={`group/talk rounded-full transition-all duration-500 ${isScrolled ? "bg-foreground hover:bg-foreground/90 text-background px-4 h-8 text-xs" : "bg-white hover:bg-white/90 text-black px-6"}`}
             >
-              Deploy agent
+              <TalkLabel />
             </Button>
           </div>
 
@@ -141,10 +157,10 @@ export function Navigation() {
               Sign in
             </Button>
             <Button 
-              className="flex-1 bg-foreground text-background rounded-full h-14 text-base"
+              className="group/talk flex-1 bg-foreground text-background rounded-full h-14 text-base"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Deploy agent
+              <TalkLabel />
             </Button>
           </div>
         </div>
@@ -152,3 +168,4 @@ export function Navigation() {
     </header>
   );
 }
+
