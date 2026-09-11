@@ -238,10 +238,11 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-white/60">
-            <span className="w-12 sm:w-8 h-px bg-white/30" />
+          <span className="inline-flex items-center justify-center sm:justify-start gap-3 text-sm font-mono text-white/60">
+            <span className="hidden sm:block w-8 h-px bg-white/30" />
             Modern Engineering for Business Transformation
           </span>
+          <span className="sm:hidden block w-12 h-px bg-white/30 mx-auto mt-4" />
         </div>
         
         {/* Main headline */}
