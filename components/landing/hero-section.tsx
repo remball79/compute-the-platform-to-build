@@ -262,7 +262,7 @@ export function HeroSection() {
 
         {/* Supporting subcopy */}
         <div
-          className={`mb-0 sm:mb-12 transition-all duration-1000 delay-150 ${
+          className={`mb-10 sm:mb-12 transition-all duration-1000 delay-150 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -275,11 +275,11 @@ export function HeroSection() {
       
       {/* Stats — 3 metrics static, no auto-scroll */}
       <div
-        className={`mt-7 pb-14 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+        className={`mt-2 pb-20 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-4 sm:flex sm:items-start sm:gap-10 lg:gap-20">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-x-4 gap-y-6 sm:flex sm:items-start sm:gap-10 lg:gap-20">
           {[
             { value: "100+", label: "Digital projects delivered" },
             { value: "90%", label: "Repeat business" },
