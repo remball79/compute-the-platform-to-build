@@ -148,7 +148,7 @@ export function FeaturesSectionAccordion() {
 
   return (
     <section
-      id="features-accordion"
+      id="features"
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden"
     >
@@ -159,7 +159,7 @@ export function FeaturesSectionAccordion() {
             <div className="lg:col-span-7">
               <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
                 <span className="w-12 h-px bg-foreground/30" />
-                Capabilities (Accordion Preview)
+                Capabilities
               </span>
               <h2
                 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
