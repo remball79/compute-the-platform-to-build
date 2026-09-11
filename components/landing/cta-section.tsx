@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { TalkLabel } from "@/components/landing/talk-label";
 
 export function CtaSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -64,10 +64,9 @@ export function CtaSection() {
                 <div className="flex flex-col sm:flex-row items-start gap-4">
                   <Button
                     size="lg"
-                    className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group"
+                    className="group/talk bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full"
                   >
-                    Let's Talk
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    <TalkLabel />
                   </Button>
                   <Button
                     size="lg"
