@@ -19,13 +19,21 @@ function AnimatedDotGridCanvas() {
     const SPACING = 18;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resize();
     window.addEventListener("resize", resize);
+
+    // Wavelengths are in absolute pixels (not normalized to canvas size) so the
+    // pattern reads at the same physical speed and density on any viewport —
+    // a narrow mobile canvas previously compressed the same cycle count into
+    // far fewer pixels, making the motion look much slower than on desktop.
+    const WAVELENGTH_X = 150;
+    const WAVELENGTH_Y = 115;
+    const WAVELENGTH_XY = 130;
 
     const animate = () => {
       const width = canvas.offsetWidth;
@@ -35,13 +43,11 @@ function AnimatedDotGridCanvas() {
       const maxR = SPACING * 0.4;
 
       for (let y = SPACING / 2; y < height; y += SPACING) {
-        const ny = y / height;
         for (let x = SPACING / 2; x < width; x += SPACING) {
-          const nx = x / width;
           const v =
-            Math.sin(nx * 9 + time) +
-            Math.sin(ny * 7 - time * 0.85) +
-            Math.sin((nx + ny) * 6 + time * 1.3);
+            Math.sin(x / WAVELENGTH_X + time) +
+            Math.sin(y / WAVELENGTH_Y - time * 0.85) +
+            Math.sin((x + y) / WAVELENGTH_XY + time * 1.3);
           const t = Math.max(0, Math.min(1, (v + 3) / 6));
 
           if (t < 0.35) {
