@@ -27,14 +27,6 @@ function AnimatedDotGridCanvas() {
     resize();
     window.addEventListener("resize", resize);
 
-    // Wavelengths are in absolute pixels (not normalized to canvas size) so the
-    // pattern reads at the same physical speed and density on any viewport —
-    // a narrow mobile canvas previously compressed the same cycle count into
-    // far fewer pixels, making the motion look much slower than on desktop.
-    const WAVELENGTH_X = 150;
-    const WAVELENGTH_Y = 115;
-    const WAVELENGTH_XY = 130;
-
     const animate = () => {
       const width = canvas.offsetWidth;
       const height = canvas.offsetHeight;
@@ -42,12 +34,22 @@ function AnimatedDotGridCanvas() {
 
       const maxR = SPACING * 0.4;
 
+      // Wavelengths scale with the canvas the same way the original width/height-
+      // normalized version did (width/9, height/7, etc.), so desktop blob size
+      // is unchanged on any screen width. The floor only kicks in on narrow
+      // mobile viewports, where it previously compressed the same cycle count
+      // into far fewer pixels and made the motion look much slower than desktop.
+      const wlX = Math.max(width / 9, 150);
+      const wlY = Math.max(height / 7, 115);
+      const wlDiagX = Math.max(width / 6, 130);
+      const wlDiagY = Math.max(height / 6, 100);
+
       for (let y = SPACING / 2; y < height; y += SPACING) {
         for (let x = SPACING / 2; x < width; x += SPACING) {
           const v =
-            Math.sin(x / WAVELENGTH_X + time) +
-            Math.sin(y / WAVELENGTH_Y - time * 0.85) +
-            Math.sin((x + y) / WAVELENGTH_XY + time * 1.3);
+            Math.sin(x / wlX + time) +
+            Math.sin(y / wlY - time * 0.85) +
+            Math.sin(x / wlDiagX + y / wlDiagY + time * 1.3);
           const t = Math.max(0, Math.min(1, (v + 3) / 6));
 
           if (t < 0.35) {
