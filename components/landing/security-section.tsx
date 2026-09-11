@@ -6,26 +6,26 @@ import { Shield, Lock, Eye, FileCheck } from "lucide-react";
 const securityFeatures = [
   {
     icon: Shield,
-    title: "Isolated execution",
-    description: "Each agent runs in its own secure sandbox.",
+    title: "Isolated environments",
+    description: "Every project runs in its own isolated environment, kept separate from other clients' systems.",
     image: "/images/isolated.jpg",
   },
   {
     icon: Lock,
-    title: "Encrypted memory",
-    description: "Data encrypted at rest and in transit.",
+    title: "Encryption in transit & at rest",
+    description: "Data is encrypted at rest and in transit across every system we build.",
     image: "/images/encrypted.jpg",
   },
   {
     icon: Eye,
     title: "Full audit trails",
-    description: "Every action logged and inspectable.",
+    description: "Every action in the systems we deliver is logged and inspectable.",
     image: "/images/audit.jpg",
   },
   {
     icon: FileCheck,
     title: "Permission boundaries",
-    description: "Principle of least privilege by design.",
+    description: "Access follows the principle of least privilege by design.",
     image: "/images/permissions.jpg",
   },
 ];
@@ -84,7 +84,7 @@ export function SecuritySection() {
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Your agents are powerful but constrained. Enterprise-grade security ensures they only do what you allow.
+              Every system we build is powerful but constrained — enterprise-grade security by default, not an afterthought.
             </p>
           </div>
         </div>
