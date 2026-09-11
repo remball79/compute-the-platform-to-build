@@ -286,8 +286,8 @@ export function HeroSection() {
             { value: "15+ years", label: "Technology experience" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col gap-2 text-center sm:text-left">
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap">{stat.value}</span>
-              <span className="text-xs text-white leading-tight">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap [text-shadow:0_2px_10px_rgba(0,0,0,0.9)]">{stat.value}</span>
+              <span className="text-xs text-white leading-tight [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
                 {stat.label}
               </span>
             </div>
