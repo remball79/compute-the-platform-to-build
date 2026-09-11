@@ -115,8 +115,7 @@ export function FooterSection() {
             {/* Brand Column */}
             <div className="col-span-2">
               <a href="#" className="inline-flex items-center gap-2 mb-6">
-                <span className="text-2xl font-display text-white">COMPUTE</span>
-                <span className="text-xs text-white/40 font-mono">TM</span>
+                <img src="/dimo-white.svg" alt="Dimotek" className="h-7 w-auto" />
               </a>
 
               <p className="text-white/50 leading-relaxed mb-8 max-w-xs text-sm">
