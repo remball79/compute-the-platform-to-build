@@ -122,7 +122,7 @@ export function IntegrationsSection() {
         <p className={`mt-8 text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto transition-all duration-1000 delay-100 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
-          Your agents connect to 100+ tools and services. They read, write, and act autonomously across your entire stack.
+          We build MCP servers and middleware ready to connect 100+ tools and services — reading, writing, and acting reliably across your entire stack.
         </p>
       </div>
 
