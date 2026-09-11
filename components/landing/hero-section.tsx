@@ -275,11 +275,13 @@ export function HeroSection() {
       
       {/* Stats — 3 metrics static, no auto-scroll */}
       <div
-        className={`mt-2 pb-10 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+        className={`relative mt-2 pb-10 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center sm:justify-items-start sm:flex sm:items-start sm:gap-10 lg:gap-20">
+        {/* Scrim so the animated background can never wash out the numbers on mobile */}
+        <div className="absolute inset-x-2 -inset-y-3 rounded-2xl bg-black/55 backdrop-blur-sm sm:hidden" />
+        <div className="relative max-w-[1400px] mx-auto grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center sm:justify-items-start sm:flex sm:items-start sm:gap-10 lg:gap-20">
           {[
             { value: "100+", label: "Digital projects delivered" },
             { value: "90%", label: "Repeat business" },
