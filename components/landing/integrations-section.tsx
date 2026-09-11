@@ -126,20 +126,8 @@ export function IntegrationsSection() {
         </p>
       </div>
 
-      {/* Full-width image */}
-      <div className={`relative left-1/2 -translate-x-1/2 w-screen -mt-16 transition-all duration-1000 delay-200 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      }`}>
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png"
-          alt=""
-          aria-hidden="true"
-          className="w-full h-auto object-cover"
-        />
-      </div>
-
-      {/* Integration grid — remonte sur l'image avec spacing mobile approprié */}
-      <div className="relative z-10 mt-0 lg:-mt-24 max-w-[1400px] mx-auto px-6 lg:px-12">
+      {/* Integration grid */}
+      <div className="relative z-10 mt-16 lg:mt-24 max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16">
           {integrations.map((integration, index) => (
             <div
