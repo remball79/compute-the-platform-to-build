@@ -13,7 +13,7 @@ const capabilities: Capability[] = [
   {
     title: "AI & Autonomous Systems",
     description:
-      "We embed intelligent agents and enterprise RAG into core operational workflows, enabling systems to understand business context, automate complex processes, and support faster, more informed decisions.",
+      "We embed intelligent agents and enterprise RAG into core workflows, automating decisions.",
     coreCapabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2813%29-OQ2DiR3ElVsUg8kTvTL1kC5A3Q6maM.png",
@@ -21,17 +21,31 @@ const capabilities: Capability[] = [
   {
     title: "Data Intelligence & Integration",
     description:
-      "We architect interoperability layers, composable APIs, and unified data pipelines to eliminate operational silos and enable reliable information flow across enterprise systems.",
+      "We architect interoperability layers, composable APIs, and unified pipelines connecting your enterprise systems.",
     coreCapabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png",
   },
   {
     title: "Software & Commerce Engineering",
     description:
-      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations, connecting customer experiences with enterprise systems and workflows.",
+      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations.",
     coreCapabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png",
+  },
+  {
+    title: "Cloud & Platform Engineering",
+    description:
+      "We design and operate scalable cloud platforms that power your applications and AI workloads.",
+    coreCapabilities: ["Cloud Architecture & Infrastructure", "Platform Engineering & DevOps", "Observability, Security & Reliability"],
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png",
+  },
+  {
+    title: "Strategy & Consulting",
+    description:
+      "We help organizations define technology roadmaps and turn complex transformation into executable plans.",
+    coreCapabilities: ["Digital Transformation Strategy", "Technology & Architecture Advisory", "Product & Platform Roadmaps"],
+    image: "/images/bridge.png",
   },
 ];
 
@@ -66,7 +80,7 @@ function AccordionItem({
         onClick={onSelect}
         aria-expanded={isActive}
         aria-controls={panelId}
-        className="w-full flex items-center gap-5 py-6 lg:py-7 text-left group"
+        className="w-full flex items-center gap-5 py-6 text-left group"
       >
         <span
           className={`font-mono text-sm transition-colors duration-300 ${
@@ -102,12 +116,12 @@ function AccordionItem({
             id={panelId}
             role="region"
             aria-labelledby={headerId}
-            className={`pb-8 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
+            className={`pb-4 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-6">
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-4 lg:line-clamp-2">
               {capability.description}
             </p>
-            <span className="block text-sm text-muted-foreground font-mono mb-3">Core capabilities</span>
+            <span className="block text-sm text-muted-foreground font-mono mb-2">Core capabilities</span>
             <div className="flex flex-wrap gap-2.5">
               {capability.coreCapabilities.map((item) => (
                 <CorePill key={item} label={item} />
