@@ -37,7 +37,8 @@ const capabilities: Capability[] = [
 
 function CorePill({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-foreground/15 bg-foreground/[0.04] px-4 py-1.5 text-sm leading-none text-foreground/80 whitespace-nowrap">
+    <span className="inline-flex items-center gap-2 h-[32.4px] rounded-full border border-foreground/15 bg-foreground/[0.04] px-4 text-sm leading-none text-foreground/80 whitespace-nowrap">
+      <span className="w-1 h-1 rounded-full bg-foreground/50 shrink-0" />
       {label}
     </span>
   );
