@@ -19,7 +19,7 @@ function AnimatedDotGridCanvas() {
     const SPACING = 18;
 
     const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = canvas.offsetWidth * dpr;
       canvas.height = canvas.offsetHeight * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -34,14 +34,22 @@ function AnimatedDotGridCanvas() {
 
       const maxR = SPACING * 0.4;
 
+      // Wavelengths scale with the canvas the same way the original width/height-
+      // normalized version did (width/9, height/7, etc.), so desktop blob size
+      // is unchanged on any screen width. The floor only kicks in on narrow
+      // mobile viewports, where it previously compressed the same cycle count
+      // into far fewer pixels and made the motion look much slower than desktop.
+      const wlX = Math.max(width / 9, 150);
+      const wlY = Math.max(height / 7, 115);
+      const wlDiagX = Math.max(width / 6, 130);
+      const wlDiagY = Math.max(height / 6, 100);
+
       for (let y = SPACING / 2; y < height; y += SPACING) {
-        const ny = y / height;
         for (let x = SPACING / 2; x < width; x += SPACING) {
-          const nx = x / width;
           const v =
-            Math.sin(nx * 9 + time) +
-            Math.sin(ny * 7 - time * 0.85) +
-            Math.sin((nx + ny) * 6 + time * 1.3);
+            Math.sin(x / wlX + time) +
+            Math.sin(y / wlY - time * 0.85) +
+            Math.sin(x / wlDiagX + y / wlDiagY + time * 1.3);
           const t = Math.max(0, Math.min(1, (v + 3) / 6));
 
           if (t < 0.35) {
@@ -195,13 +203,13 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
+    <section className="relative min-h-[100svh] sm:min-h-screen flex flex-col justify-center items-center sm:items-start overflow-hidden bg-black">
       {/* Background animation */}
       <div className="absolute inset-0 z-0">
         <AnimatedDotGridCanvas />
         {/* Subtle overlay to ensure text readability on the left */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.2)_0%,transparent_35%,rgba(0,0,0,0.55)_75%,rgba(0,0,0,0.88)_100%)]" />
       </div>
 
       {/* Subtle grid lines */}
@@ -230,24 +238,25 @@ export function HeroSection() {
         ))}
       </div>
       
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 pt-[120px] pb-0 sm:py-32 lg:py-40">
-        <div className="lg:max-w-[55%]">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 pt-28 pb-0 sm:py-32 lg:py-40">
+        <div className="lg:max-w-[55%] text-center sm:text-left">
         {/* Eyebrow */}
         <div 
           className={`mb-8 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-white/60">
-            <span className="w-12 sm:w-8 h-px bg-white/30" />
+          <span className="inline-flex items-center justify-center sm:justify-start gap-3 text-sm font-mono text-white/60">
+            <span className="hidden sm:block w-8 h-px bg-white/30" />
             Modern Engineering for Business Transformation
           </span>
+          <span className="sm:hidden block w-12 h-px bg-white/30 mx-auto mt-4" />
         </div>
         
         {/* Main headline */}
         <div className="mb-7 sm:mb-12">
           <h1
-            className={`text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
+            className={`text-center sm:text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           >
@@ -262,7 +271,7 @@ export function HeroSection() {
 
         {/* Supporting subcopy */}
         <div
-          className={`mb-0 sm:mb-12 transition-all duration-1000 delay-150 ${
+          className={`mb-10 sm:mb-12 transition-all duration-1000 delay-150 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -275,19 +284,19 @@ export function HeroSection() {
       
       {/* Stats — 3 metrics static, no auto-scroll */}
       <div
-        className={`mt-7 pb-14 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
+        className={`relative mt-2 pb-10 sm:mt-0 sm:pb-0 sm:absolute sm:bottom-12 sm:left-0 sm:right-0 px-6 lg:px-12 transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto grid grid-cols-3 gap-4 sm:flex sm:items-start sm:gap-10 lg:gap-20">
+        <div className="relative max-w-[1400px] mx-auto grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center sm:justify-items-start sm:flex sm:items-start sm:gap-10 lg:gap-20">
           {[
             { value: "100+", label: "Digital projects delivered" },
             { value: "90%", label: "Repeat business" },
             { value: "15+ years", label: "Technology experience" },
           ].map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-2">
-              <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap">{stat.value}</span>
-              <span className="text-xs text-white sm:text-white/50 leading-tight">
+            <div key={stat.label} className="flex flex-col gap-2 text-center sm:text-left">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-display text-white whitespace-nowrap [text-shadow:0_2px_10px_rgba(0,0,0,0.9)]">{stat.value}</span>
+              <span className="text-xs text-white leading-tight [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
                 {stat.label}
               </span>
             </div>
