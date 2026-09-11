@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 
 const words = ["connect", "automate", "scale"];
 
-function AnimatedWaveCanvas() {
+function AnimatedDotGridCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function AnimatedWaveCanvas() {
 
     let animationId: number;
     let time = 0;
-    const WAVE_COUNT = 8;
+    const SPACING = 18;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -32,27 +32,40 @@ function AnimatedWaveCanvas() {
       const height = canvas.offsetHeight;
       ctx.clearRect(0, 0, width, height);
 
-      ctx.strokeStyle = "rgba(49, 87, 213, 0.35)";
-      ctx.lineWidth = 1;
+      const maxR = SPACING * 0.4;
 
-      for (let wave = 0; wave < WAVE_COUNT; wave++) {
-        const baseY = (height / (WAVE_COUNT + 1)) * (wave + 1);
-        const amp1 = height * 0.03;
-        const amp2 = height * 0.02;
+      for (let y = SPACING / 2; y < height; y += SPACING) {
+        const ny = y / height;
+        for (let x = SPACING / 2; x < width; x += SPACING) {
+          const nx = x / width;
+          const v =
+            Math.sin(nx * 9 + time) +
+            Math.sin(ny * 7 - time * 0.85) +
+            Math.sin((nx + ny) * 6 + time * 1.3);
+          const t = Math.max(0, Math.min(1, (v + 3) / 6));
 
-        ctx.beginPath();
-        for (let x = 0; x <= width; x += 5) {
-          const y =
-            baseY +
-            Math.sin(x * 0.006 + time + wave * 0.5) * amp1 +
-            Math.sin(x * 0.012 + time * 1.5 + wave) * amp2;
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
+          if (t < 0.35) {
+            const r = 1 + t * 1.5;
+            ctx.fillStyle = `rgba(255,255,255,${0.05 + t * 0.15})`;
+            ctx.fillRect(x - r / 2, y - r / 2, r, r);
+          } else if (t < 0.7) {
+            const r = 1.5 + maxR * ((t - 0.35) / 0.35) * 0.7;
+            ctx.strokeStyle = `rgba(93, 125, 224, ${0.25 + t * 0.35})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.stroke();
+          } else {
+            const r = maxR * (0.6 + ((t - 0.7) / 0.3) * 0.4);
+            ctx.fillStyle = `rgba(93, 125, 224, ${0.5 + (t - 0.7) * 1.2})`;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
-        ctx.stroke();
       }
 
-      time += 0.015;
+      time += 0.008;
       animationId = requestAnimationFrame(animate);
     };
     animate();
@@ -185,7 +198,7 @@ export function HeroSection() {
     <section className="relative min-h-[100svh] sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
       {/* Background animation */}
       <div className="absolute inset-0 z-0">
-        <AnimatedWaveCanvas />
+        <AnimatedDotGridCanvas />
         {/* Subtle overlay to ensure text readability on the left */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
