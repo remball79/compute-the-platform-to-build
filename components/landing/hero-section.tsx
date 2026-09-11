@@ -201,7 +201,7 @@ export function HeroSection() {
         <AnimatedDotGridCanvas />
         {/* Subtle overlay to ensure text readability on the left */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.2)_0%,transparent_35%,rgba(0,0,0,0.55)_75%,rgba(0,0,0,0.88)_100%)]" />
       </div>
 
       {/* Subtle grid lines */}
@@ -279,8 +279,6 @@ export function HeroSection() {
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Scrim so the animated background can never wash out the numbers on mobile */}
-        <div className="absolute inset-x-2 -inset-y-3 rounded-2xl bg-black/55 backdrop-blur-sm sm:hidden" />
         <div className="relative max-w-[1400px] mx-auto grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center sm:justify-items-start sm:flex sm:items-start sm:gap-10 lg:gap-20">
           {[
             { value: "100+", label: "Digital projects delivered" },
