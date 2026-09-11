@@ -4,6 +4,68 @@ import { useEffect, useState, useRef } from "react";
 
 const words = ["connect", "automate", "scale"];
 
+function AnimatedWaveCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationId: number;
+    let time = 0;
+    const WAVE_COUNT = 8;
+
+    const resize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const animate = () => {
+      const width = canvas.offsetWidth;
+      const height = canvas.offsetHeight;
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.strokeStyle = "rgba(49, 87, 213, 0.35)";
+      ctx.lineWidth = 1;
+
+      for (let wave = 0; wave < WAVE_COUNT; wave++) {
+        const baseY = (height / (WAVE_COUNT + 1)) * (wave + 1);
+        const amp1 = height * 0.03;
+        const amp2 = height * 0.02;
+
+        ctx.beginPath();
+        for (let x = 0; x <= width; x += 5) {
+          const y =
+            baseY +
+            Math.sin(x * 0.006 + time + wave * 0.5) * amp1 +
+            Math.sin(x * 0.012 + time * 1.5 + wave) * amp2;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      time += 0.015;
+      animationId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(animationId);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="w-full h-full" aria-hidden="true" />;
+}
+
 function BlurWord({ word, trigger }: { word: string; trigger: number }) {
   const letters = word.split("");
   const STAGGER = 45;      // ms between each letter
@@ -121,18 +183,9 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[100svh] sm:min-h-screen flex flex-col justify-start sm:justify-center items-start overflow-hidden bg-black">
-      {/* Background video */}
+      {/* Background animation */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-hidden="true"
-          className="w-full h-full object-cover object-center opacity-80"
-        >
-          <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bg-hero-0BnFGdr81Ifnj3WbBZoNt1KE4D5DMT.mp4" type="video/mp4" />
-        </video>
+        <AnimatedWaveCanvas />
         {/* Subtle overlay to ensure text readability on the left */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
