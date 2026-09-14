@@ -60,6 +60,20 @@ we build, we integrate"), no como producto self-serve.
 
 ## Coordinación entre agentes
 
-Si más de un LLM/agente trabaja en este repo en paralelo, coordinar quién
-toca qué archivo (o usar branches separadas partiendo de `v0/staging-preview`
-y mergear con cuidado) — no hay ningún mecanismo de lock automático.
+Este proyecto puede tener más de un LLM trabajando en paralelo (Claude Code,
+Codex CLI, etc.), cada uno en una tarea distinta. No hay ningún mecanismo de
+lock automático, así que seguir este protocolo:
+
+- **Cada agente trabaja en su propia branch**, nunca directo sobre
+  `v0/staging-preview`. Convención de nombre: `<agente>/<tarea-corta>`
+  (ej. `claude/pricing-section`, `codex/testimonials-fix`).
+- Antes de crear la branch, actualizar desde el remoto:
+  `git checkout v0/staging-preview && git pull origin v0/staging-preview`,
+  y recién ahí `git checkout -b <agente>/<tarea>`.
+- Al terminar la tarea: push de la branch propia, y mergear a
+  `v0/staging-preview` (no a `main`) — pedirle confirmación al usuario si el
+  cambio es grande o toca archivos compartidos.
+- Si dos tareas van a tocar el mismo archivo, avisar al usuario para que
+  decida el orden antes de empezar, en vez de asumir.
+- `main` se mergea solo con pedido explícito del usuario ("mergea a main"),
+  sin importar qué agente lo pida.
