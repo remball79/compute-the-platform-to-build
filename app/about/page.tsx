@@ -3,8 +3,8 @@ import { FooterSection } from "@/components/landing/footer-section";
 import { Navigation } from "@/components/landing/navigation";
 
 export const metadata = {
-  title: "About — COMPUTE",
-  description: "Learn how COMPUTE is building the operating layer for autonomous AI agents.",
+  title: "About Dimotek | Systems Integration & AI Engineering",
+  description: "Meet Dimotek, the team that designs, builds, and integrates AI, commerce, data, cloud, and enterprise systems for modern businesses.",
 };
 
 const principles = [

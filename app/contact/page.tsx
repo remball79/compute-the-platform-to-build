@@ -3,8 +3,8 @@ import { FooterSection } from "@/components/landing/footer-section";
 import { Navigation } from "@/components/landing/navigation";
 
 export const metadata = {
-  title: "Contact — COMPUTE",
-  description: "Talk to the COMPUTE team about autonomous AI agents for distributed computing.",
+  title: "Contact Dimotek | Start a Project",
+  description: "Talk with Dimotek about your next AI, commerce, data, cloud, or enterprise systems project.",
 };
 
 export default function ContactPage() {
