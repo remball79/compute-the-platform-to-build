@@ -61,12 +61,13 @@ we build, we integrate"), no como producto self-serve.
 ## Coordinación entre agentes
 
 Este proyecto puede tener más de un LLM trabajando en paralelo (Claude Code,
-Codex CLI, etc.), cada uno en una tarea distinta. No hay ningún mecanismo de
-lock automático, así que seguir este protocolo:
+Codex CLI, Antigravity, etc.), cada uno en una tarea distinta. No hay ningún
+mecanismo de lock automático, así que seguir este protocolo:
 
 - **Cada agente trabaja en su propia branch**, nunca directo sobre
   `v0/staging-preview`. Convención de nombre: `<agente>/<tarea-corta>`
-  (ej. `claude/pricing-section`, `codex/testimonials-fix`).
+  (ej. `claude/pricing-section`, `codex/testimonials-fix`,
+  `antigravity/architecture-accent-color`).
 - Antes de crear la branch, actualizar desde el remoto:
   `git checkout v0/staging-preview && git pull origin v0/staging-preview`,
   y recién ahí `git checkout -b <agente>/<tarea>`.
