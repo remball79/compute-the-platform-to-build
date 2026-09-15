@@ -246,11 +246,10 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <span className="inline-flex items-center justify-center sm:justify-start gap-3 text-sm font-mono text-white/60">
-            <span className="hidden sm:block w-8 h-px bg-white/30" />
+          <span className="inline-flex max-w-full items-center justify-center gap-2 rounded-full border border-white/20 bg-black/20 px-3 py-2 text-[10px] leading-none text-white/70 backdrop-blur-sm sm:px-4 sm:text-sm">
+            <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
             Modern Engineering for Business Transformation
           </span>
-          <span className="sm:hidden block w-12 h-px bg-white/30 mx-auto mt-4" />
         </div>
         
         {/* Main headline */}
