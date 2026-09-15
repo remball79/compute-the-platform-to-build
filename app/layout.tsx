@@ -21,9 +21,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'COMPUTE - AI Agents for Distributed Computing',
-  description: 'Deploy autonomous AI agents on distributed infrastructure. Offload complex tasks to intelligent workers that run 24/7.',
-  generator: 'v0.app',
+  title: 'Dimotek | Systems Integration & AI Engineering',
+  description: 'Dimotek designs and builds AI, commerce, data, cloud, and enterprise systems that connect your business and turn complex operations into working software.',
 }
 
 export default function RootLayout({
