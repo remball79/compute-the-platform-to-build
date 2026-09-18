@@ -97,12 +97,18 @@ function AccordionItem({
           {capability.title}
         </span>
         <span
-          className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${
-            isActive ? "border-[#3157D5] text-[#3157D5] rotate-45" : "border-foreground/20 text-foreground/40"
+          className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-300 ${
+            isActive ? "border-[#3157D5] text-[#3157D5]" : "border-foreground/20 text-foreground/40 group-hover:text-white"
           }`}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <path d="M6 0V12M0 6H12" stroke="currentColor" strokeWidth="1.2" />
+            <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" strokeWidth="1.2" />
+            <line
+              x1="6" y1="0" x2="6" y2="12"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              className={`origin-center transition-transform duration-300 ${isActive ? "scale-y-0" : "scale-y-100"}`}
+            />
           </svg>
         </span>
       </button>
