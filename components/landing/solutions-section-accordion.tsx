@@ -5,6 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 
 type Solution = {
   title: string;
+  category?: string;
   description: string;
   image: string;
 };
@@ -12,6 +13,7 @@ type Solution = {
 const solutions: Solution[] = [
   {
     title: "Microsoft 365",
+    category: "Productivity & Collaboration Suite",
     description:
       "We deploy and integrate Microsoft 365 so teams collaborate securely inside the tools they already use.",
     image:
@@ -19,12 +21,14 @@ const solutions: Solution[] = [
   },
   {
     title: "Odoo",
+    category: "ERP / Business Management",
     description:
       "We implement and tailor Odoo to unify finance, inventory, sales, and operations in one flexible ERP.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png",
   },
   {
     title: "Alumio",
+    category: "Integration Platform / iPaaS",
     description:
       "We connect your systems with Alumio, orchestrating APIs and data flows without point-to-point code.",
     image:
@@ -32,12 +36,14 @@ const solutions: Solution[] = [
   },
   {
     title: "Google Cloud Platform",
+    category: "Cloud Platform / Data & AI",
     description:
       "We architect and run workloads on Google Cloud, from data and AI pipelines to scalable infrastructure.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png",
   },
   {
     title: "VTEX",
+    category: "Commerce Platform / eCommerce",
     description:
       "We build and extend VTEX storefronts and integrations that scale from launch to enterprise operations.",
     image: "/images/bridge.png",
@@ -101,7 +107,7 @@ export function SolutionsSectionAccordion() {
           <div className="grid lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
               <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-                <span className="w-12 h-px bg-foreground/30" />
+                <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
                 Solutions
               </span>
               <h2
@@ -126,65 +132,43 @@ export function SolutionsSectionAccordion() {
           </div>
         </div>
 
-        {/* Solutions carousel — 2 visible on desktop, 1 (with peek) on mobile */}
+        {/* Solutions carousel — one full-width card at a time */}
         <div
           className={`transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           <Carousel setApi={setApi} opts={{ loop: true, align: "start" }}>
-            <CarouselContent className="-ml-4 lg:-ml-20">
+            <CarouselContent className="-ml-4">
               {solutions.map((solution, index) => (
-                <CarouselItem key={solution.title} className="pl-4 lg:pl-20 basis-[85%] sm:basis-1/2">
-                  <button
-                    type="button"
-                    onClick={() => api?.scrollTo(index)}
-                    className={`relative block w-full aspect-[4/5] lg:aspect-[612/549] overflow-hidden text-left border bg-black transition-all duration-500 ${
-                      activeIndex === index
-                        ? "border-white/60"
-                        : "border-white/25 hover:border-[#203A84]"
-                    }`}
-                  >
-                    <img
-                      src={solution.image || "/placeholder.svg"}
-                      alt=""
-                      aria-hidden="true"
-                      className={`absolute inset-0 w-full h-full object-contain p-10 pb-40 transition-opacity duration-500 ${
-                        activeIndex === index ? "opacity-100" : "opacity-60"
-                      }`}
-                    />
-
-                    <div className="absolute inset-x-0 bottom-0 p-6 lg:p-10 bg-gradient-to-t from-black via-black/85 to-transparent">
-                      <div className="flex items-center gap-4 mb-4">
-                        <span
-                          className={`text-3xl font-display transition-colors duration-300 ${
-                            activeIndex === index ? "text-[#3157D5]" : "text-white/20"
-                          }`}
-                        >
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <div className="flex-1 h-px bg-white/10 overflow-hidden">
-                          {activeIndex === index && (
-                            <div key={activeIndex} className="h-full bg-[#3157D5]/50 animate-progress" />
-                          )}
-                        </div>
-                      </div>
-                      <h3 className="text-2xl lg:text-3xl font-display mb-2">{solution.title}</h3>
-                      <p
-                        className={`text-white/60 leading-relaxed transition-opacity duration-300 ${
-                          activeIndex === index ? "opacity-100" : "opacity-60"
-                        }`}
-                      >
+                <CarouselItem key={solution.title} className="pl-4 basis-full">
+                  <div className="grid h-full grid-rows-[1fr_auto] lg:grid-rows-1 lg:grid-cols-[42%_58%] lg:h-[549px] border border-white/25 bg-black overflow-hidden">
+                    {/* Left: text (on top in mobile) */}
+                    <div className="flex flex-col justify-center px-8 py-10 lg:p-14">
+                      <span className="text-base lg:text-lg font-display text-[#3157D5] mb-5 lg:mb-6">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="text-3xl lg:text-5xl font-display mb-4">{solution.title}</h3>
+                      {solution.category && (
+                        <span className="text-base lg:text-[17px] font-mono text-white/40 mb-7 lg:mb-8">{solution.category}</span>
+                      )}
+                      <p className="text-lg lg:text-xl text-white/60 leading-[1.5] max-w-[450px]">
                         {solution.description}
                       </p>
                     </div>
 
-                    <div
-                      className={`absolute -bottom-px left-0 right-0 h-1 bg-[#3157D5] transition-transform duration-500 origin-left z-[2] ${
-                        activeIndex === index ? "scale-x-100" : "scale-x-0"
-                      }`}
-                    />
-                  </button>
+                    {/* Right: padded image column, centered */}
+                    <div className="flex items-center justify-center px-8 pb-10 md:px-12 md:pb-12 lg:px-14 lg:py-12">
+                      <div className="w-full lg:w-[78%] aspect-video overflow-hidden">
+                        <img
+                          src={solution.image || "/placeholder.svg"}
+                          alt=""
+                          aria-hidden="true"
+                          className="block w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -232,16 +216,6 @@ export function SolutionsSectionAccordion() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes progress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-        .animate-progress {
-          animation: progress 6s linear forwards;
-        }
-      `}</style>
     </section>
   );
 }

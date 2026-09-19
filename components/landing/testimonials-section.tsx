@@ -95,7 +95,7 @@ export function TestimonialsSection() {
         <div className="flex items-center justify-between mb-20">
           <div>
             <span className="inline-flex items-center gap-3 text-sm font-mono text-background/40 mb-4">
-              <span className="w-12 h-px bg-background/20" />
+              <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
               Testimonials
             </span>
             <h2 className={`text-4xl lg:text-5xl font-display transition-all duration-1000 ${
