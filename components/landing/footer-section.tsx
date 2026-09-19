@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import { AnimatedDotGridCanvas } from "@/components/landing/animated-dot-grid";
 
 const footerLinks = {
   Product: [
@@ -23,27 +24,22 @@ const footerLinks = {
 
 const socialLinks = [
   { name: "Twitter", href: "#" },
-  { name: "GitHub", href: "#" },
   { name: "LinkedIn", href: "#" },
 ];
 
 export function FooterSection() {
   return (
-    <footer className="relative bg-black">
-      {/* Panoramic banner image */}
-      <div className="relative w-full h-[340px] md:h-[420px] overflow-hidden">
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2810%29-UnDKstODkIENp5xqTYUEpt0Sm8tNOw.png"
-          alt="Bioluminescent landscape"
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Gradient fade to black at bottom */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
-        {/* Subtle dark vignette on sides */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+    <footer className="relative overflow-hidden bg-black">
+      {/* Background animation (same as Hero) */}
+      <div className="absolute inset-0 z-0">
+        <AnimatedDotGridCanvas />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.9)_0%,rgba(0,0,0,0.7)_40%,rgba(0,0,0,0.8)_100%)]" />
       </div>
 
-      {/* Footer content — black background, white text */}
+      {/* Footer content — white text */}
+      {/* Top line — full width */}
+      <div className="relative z-10 w-full border-t border-white/10" />
+
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Main Footer */}
         <div className="py-16 lg:py-20">
@@ -64,7 +60,7 @@ export function FooterSection() {
                   <a
                     key={link.name}
                     href={link.href}
-                    className="text-sm text-white/40 hover:text-white transition-colors flex items-center gap-1 group"
+                    className="text-sm text-white/60 hover:text-white transition-colors flex items-center gap-1 group"
                   >
                     {link.name}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
@@ -82,7 +78,7 @@ export function FooterSection() {
                     <li key={link.name}>
                       <a
                         href={link.href}
-                        className="text-sm text-white/40 hover:text-white transition-colors inline-flex items-center gap-2"
+                        className="text-sm text-white/60 hover:text-white transition-colors inline-flex items-center gap-2"
                       >
                         {link.name}
                         {"badge" in link && link.badge && (
@@ -101,7 +97,7 @@ export function FooterSection() {
 
         {/* Bottom Bar */}
         <div className="py-8 border-t border-white/10">
-          <p className="text-sm text-white/30">
+          <p className="text-sm text-white/50">
             &copy; 2026 Dimotek. All rights reserved.
           </p>
         </div>
