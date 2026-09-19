@@ -118,7 +118,7 @@ function CapabilityRow({
               isActive ? "opacity-100 delay-150" : "opacity-0"
             }`}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+            <p className="text-lg text-foreground/70 leading-relaxed max-w-lg">
               {capability.description}
             </p>
             <div>
@@ -169,7 +169,7 @@ export function CapabilitiesSectionAccordion() {
                 Capabilities
               </span>
               <h2
-                className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
+                className={`text-[3.5rem] md:text-7xl lg:text-[7.25rem] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
@@ -180,7 +180,7 @@ export function CapabilitiesSectionAccordion() {
             </div>
             <div className="lg:col-span-5 lg:pb-4">
               <p
-                className={`text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
+                className={`text-xl text-foreground/70 leading-relaxed transition-all duration-1000 delay-200 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
               >

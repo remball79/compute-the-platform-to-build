@@ -7,6 +7,7 @@ import { TalkLabel } from "@/components/landing/talk-label";
 
 const navLinks = [
   { name: "Capabilities",  href: "#features"      },
+  { name: "Solutions",     href: "#solutions"     },
   { name: "Process",       href: "#how-it-works"  },
   { name: "Architecture",  href: "#infra"          },
   { name: "Integrations",  href: "#integrations"  },
@@ -55,7 +56,7 @@ export function Navigation() {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -69,7 +70,7 @@ export function Navigation() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Button
               size="sm"
               className={`group/talk rounded-full transition-all duration-500 ${isScrolled ? "bg-foreground hover:bg-foreground/90 text-background px-4 h-8 text-xs" : "bg-white hover:bg-white/90 text-black px-6"}`}
@@ -81,7 +82,7 @@ export function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 transition-colors duration-500 ${isScrolled || isMobileMenuOpen ? "text-foreground" : "text-white"}`}
+            className={`lg:hidden p-2 transition-colors duration-500 ${isScrolled || isMobileMenuOpen ? "text-foreground" : "text-white"}`}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -96,7 +97,7 @@ export function Navigation() {
       
       {/* Mobile Menu - Full Screen Overlay */}
       <div
-        className={`md:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
+        className={`lg:hidden fixed inset-0 bg-background z-40 transition-all duration-500 ${
           isMobileMenuOpen 
             ? "opacity-100 pointer-events-auto" 
             : "opacity-0 pointer-events-none"
