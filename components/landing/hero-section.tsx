@@ -62,9 +62,9 @@ export function HeroSection() {
         </div>
         
         {/* Main headline */}
-        <div className="mb-7 sm:mb-12">
+        <div className="mb-12">
           <h1
-            className={`text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
+            className={`text-left text-[3rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           >
@@ -79,7 +79,7 @@ export function HeroSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-xl sm:text-base lg:text-lg font-normal text-white/70 max-w-[46ch] leading-relaxed">
+          <p className="text-lg sm:text-base lg:text-lg font-normal text-white/70 max-w-[46ch] leading-relaxed">
             Dimotek integrates AI, data, commerce, and enterprise platforms so information moves reliably across your operation and teams spend less time fixing disconnected workflows.
           </p>
         </div>
