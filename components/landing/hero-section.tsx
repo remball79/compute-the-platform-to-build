@@ -157,7 +157,7 @@ export function HeroSection() {
       </div>
       
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 pt-28 pb-0 sm:py-32 lg:py-40">
-        <div className="lg:max-w-[55%] text-center sm:text-left">
+        <div className="lg:max-w-[55%] text-left">
         {/* Eyebrow */}
         <div 
           className={`mb-8 transition-all duration-700 ${
@@ -173,7 +173,7 @@ export function HeroSection() {
         {/* Main headline */}
         <div className="mb-7 sm:mb-12">
           <h1
-            className={`text-center sm:text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
+            className={`text-left text-[3.375rem] sm:text-[clamp(2rem,6vw,7rem)] font-display leading-[0.9] tracking-tight text-white transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
           >
