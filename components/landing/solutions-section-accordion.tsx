@@ -2,85 +2,70 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Capability = {
+type Solution = {
   title: string;
   description: string;
-  coreCapabilities: string[];
   image: string;
 };
 
-const capabilities: Capability[] = [
+const solutions: Solution[] = [
   {
-    title: "AI & Autonomous Systems",
+    title: "Microsoft 365",
     description:
-      "We embed intelligent agents and enterprise RAG into core workflows, automating decisions.",
-    coreCapabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
+      "We deploy and integrate Microsoft 365 so teams collaborate securely inside the tools they already use.",
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2813%29-OQ2DiR3ElVsUg8kTvTL1kC5A3Q6maM.png",
   },
   {
-    title: "Data Intelligence & Integration",
+    title: "Odoo",
     description:
-      "We architect interoperability layers, composable APIs, and unified pipelines connecting your enterprise systems.",
-    coreCapabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
+      "We implement and tailor Odoo to unify finance, inventory, sales, and operations in one flexible ERP.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png",
   },
   {
-    title: "Software & Commerce Engineering",
+    title: "Alumio",
     description:
-      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations.",
-    coreCapabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
+      "We connect your systems with Alumio, orchestrating APIs and data flows without point-to-point code.",
     image:
       "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png",
   },
   {
-    title: "Cloud & Platform Engineering",
+    title: "Google Cloud Platform",
     description:
-      "We design and operate scalable cloud platforms that power your applications and AI workloads.",
-    coreCapabilities: ["Cloud Architecture & Infrastructure", "Platform Engineering & DevOps", "Observability, Security & Reliability"],
+      "We architect and run workloads on Google Cloud, from data and AI pipelines to scalable infrastructure.",
     image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png",
   },
   {
-    title: "Strategy & Consulting",
+    title: "VTEX",
     description:
-      "We help organizations define technology roadmaps and turn complex transformation into executable plans.",
-    coreCapabilities: ["Digital Transformation Strategy", "Technology & Architecture Advisory", "Product & Platform Roadmaps"],
+      "We build and extend VTEX storefronts and integrations that scale from launch to enterprise operations.",
     image: "/images/bridge.png",
   },
 ];
 
-function CorePill({ label }: { label: string }) {
-  return (
-    <span className="inline-flex items-center gap-2 h-[32.4px] rounded-full border border-foreground/15 bg-foreground/[0.04] px-4 text-sm leading-none text-foreground/80 whitespace-nowrap">
-      <span className="w-1 h-1 rounded-full bg-foreground/50 shrink-0" />
-      {label}
-    </span>
-  );
-}
-
 function AccordionItem({
-  capability,
+  solution,
   index,
   isActive,
   onSelect,
 }: {
-  capability: Capability;
+  solution: Solution;
   index: number;
   isActive: boolean;
   onSelect: () => void;
 }) {
-  const panelId = `capability-panel-${index}`;
-  const headerId = `capability-header-${index}`;
+  const panelId = `solution-panel-${index}`;
+  const headerId = `solution-header-${index}`;
 
   return (
-    <div className={`border-t border-foreground/10 ${index === capabilities.length - 1 ? "border-b" : ""}`}>
+    <div className={`border-t border-foreground/10 ${index === solutions.length - 1 ? "border-b" : ""}`}>
       <button
         id={headerId}
         type="button"
         onClick={onSelect}
         aria-expanded={isActive}
         aria-controls={panelId}
-        className="w-full flex items-center gap-5 py-6 text-left group"
+        className="w-full flex items-center gap-5 py-7 text-left group"
       >
         <span
           className={`font-mono text-sm transition-colors duration-300 ${
@@ -94,7 +79,7 @@ function AccordionItem({
             isActive ? "text-foreground" : "text-foreground/50 group-hover:text-foreground/80"
           }`}
         >
-          {capability.title}
+          {solution.title}
         </span>
         <span
           className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-300 ${
@@ -122,22 +107,16 @@ function AccordionItem({
             id={panelId}
             role="region"
             aria-labelledby={headerId}
-            className={`pb-4 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
+            className={`pb-6 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-4 lg:line-clamp-2">
-              {capability.description}
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg lg:line-clamp-2">
+              {solution.description}
             </p>
-            <span className="block text-sm text-muted-foreground font-mono mb-2">Core capabilities</span>
-            <div className="flex flex-wrap gap-2.5">
-              {capability.coreCapabilities.map((item) => (
-                <CorePill key={item} label={item} />
-              ))}
-            </div>
 
             {/* Image follows the active item on mobile/tablet, directly under its content */}
             <div className="lg:hidden mt-8 relative aspect-square w-full max-w-sm border border-foreground/10 bg-foreground/[0.02] p-6">
               <img
-                src={capability.image || "/placeholder.svg"}
+                src={solution.image || "/placeholder.svg"}
                 alt=""
                 aria-hidden="true"
                 className="absolute inset-0 w-full h-full object-contain p-6"
@@ -150,10 +129,10 @@ function AccordionItem({
   );
 }
 
-export function FeaturesSectionAccordion() {
+export function SolutionsSectionAccordion() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -169,7 +148,7 @@ export function FeaturesSectionAccordion() {
 
   return (
     <section
-      id="features"
+      id="solutions"
       ref={sectionRef}
       className="relative py-24 lg:py-32 overflow-hidden"
     >
@@ -180,16 +159,16 @@ export function FeaturesSectionAccordion() {
             <div className="lg:col-span-7">
               <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
                 <span className="w-12 h-px bg-foreground/30" />
-                Capabilities
+                Solutions
               </span>
               <h2
                 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
               >
-                What we
+                Platforms
                 <br />
-                <span className="text-muted-foreground">build</span>
+                <span className="text-muted-foreground">we deliver</span>
               </h2>
             </div>
             <div className="lg:col-span-5 lg:pb-4">
@@ -198,7 +177,7 @@ export function FeaturesSectionAccordion() {
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 }`}
               >
-                From AI and data to commerce, enterprise platforms, and cloud infrastructure, we design, integrate, and evolve the systems that drive modern businesses.
+                We implement, integrate, and evolve the leading platforms behind modern operations, commerce, and cloud.
               </p>
             </div>
           </div>
@@ -206,16 +185,16 @@ export function FeaturesSectionAccordion() {
 
         {/* Two-column layout: accordion + fixed square visual */}
         <div
-          className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-start transition-all duration-700 ${
+          className={`grid lg:grid-cols-2 gap-12 lg:gap-20 lg:items-stretch transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
           {/* Left: accordion */}
           <div>
-            {capabilities.map((capability, index) => (
+            {solutions.map((solution, index) => (
               <AccordionItem
-                key={capability.title}
-                capability={capability}
+                key={solution.title}
+                solution={solution}
                 index={index}
                 isActive={activeIndex === index}
                 onSelect={() => setActiveIndex(index)}
@@ -224,12 +203,12 @@ export function FeaturesSectionAccordion() {
           </div>
 
           {/* Right: fixed square visual container, desktop only — image crossfades with active item */}
-          <div className="hidden lg:block sticky top-32">
-            <div className="relative aspect-square w-full border border-foreground/10 bg-foreground/[0.02] overflow-hidden">
-              {capabilities.map((capability, index) => (
+          <div className="hidden lg:block">
+            <div className="relative h-full w-full border border-foreground/10 bg-foreground/[0.02] overflow-hidden">
+              {solutions.map((solution, index) => (
                 <img
-                  key={capability.title}
-                  src={capability.image || "/placeholder.svg"}
+                  key={solution.title}
+                  src={solution.image || "/placeholder.svg"}
                   alt=""
                   aria-hidden="true"
                   className={`absolute inset-0 w-full h-full object-contain p-12 transition-opacity duration-700 ease-in-out ${

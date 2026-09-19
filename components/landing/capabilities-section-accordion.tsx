@@ -1,0 +1,212 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+function CorePill({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 h-[32.4px] rounded-full border border-foreground/15 bg-foreground/[0.04] px-4 text-sm leading-none text-foreground/80 whitespace-nowrap">
+      <span className="w-1 h-1 rounded-full bg-foreground/50 shrink-0" />
+      {label}
+    </span>
+  );
+}
+
+type Capability = {
+  title: string;
+  description: string;
+  coreCapabilities: string[];
+};
+
+const capabilities: Capability[] = [
+  {
+    title: "AI & Autonomous Systems",
+    description:
+      "We embed intelligent agents and enterprise RAG into core workflows, automating decisions.",
+    coreCapabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
+  },
+  {
+    title: "Data Intelligence & Integration",
+    description:
+      "We architect interoperability layers, composable APIs, and unified pipelines connecting your enterprise systems.",
+    coreCapabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
+  },
+  {
+    title: "Software & Commerce Engineering",
+    description:
+      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations.",
+    coreCapabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
+  },
+  {
+    title: "Cloud & Platform Engineering",
+    description:
+      "We design and operate scalable cloud platforms that power your applications and AI workloads.",
+    coreCapabilities: ["Cloud Architecture & Infrastructure", "Platform Engineering & DevOps", "Observability, Security & Reliability"],
+  },
+  {
+    title: "Strategy & Consulting",
+    description:
+      "We help organizations define technology roadmaps and turn complex transformation into executable plans.",
+    coreCapabilities: ["Digital Transformation Strategy", "Technology & Architecture Advisory", "Product & Platform Roadmaps"],
+  },
+];
+
+function CapabilityRow({
+  capability,
+  index,
+  isActive,
+  onSelect,
+}: {
+  capability: Capability;
+  index: number;
+  isActive: boolean;
+  onSelect: () => void;
+}) {
+  const panelId = `capabilities-panel-${index}`;
+  const headerId = `capabilities-header-${index}`;
+
+  return (
+    <div className={`border-t border-foreground/10 ${index === capabilities.length - 1 ? "border-b" : ""}`}>
+      <button
+        id={headerId}
+        type="button"
+        onClick={onSelect}
+        aria-expanded={isActive}
+        aria-controls={panelId}
+        className="w-full flex items-center gap-5 py-6 lg:py-8 text-left group"
+      >
+        <span
+          className={`w-8 shrink-0 font-mono text-sm transition-colors duration-300 ${
+            isActive ? "text-[#3157D5]" : "text-muted-foreground"
+          }`}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span
+          className={`flex-1 text-2xl lg:text-4xl font-display transition-colors duration-300 ${
+            isActive ? "text-foreground" : "text-foreground/50 group-hover:text-foreground/80"
+          }`}
+        >
+          {capability.title}
+        </span>
+        <span
+          className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-300 ${
+            isActive ? "border-[#3157D5] text-[#3157D5]" : "border-foreground/20 text-foreground/40 group-hover:text-white"
+          }`}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" strokeWidth="1.2" />
+            <line
+              x1="6" y1="0" x2="6" y2="12"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              className={`origin-center transition-transform duration-300 ${isActive ? "scale-y-0" : "scale-y-100"}`}
+            />
+          </svg>
+        </span>
+      </button>
+
+      <div
+        className="grid transition-[grid-template-rows] duration-500 ease-in-out"
+        style={{ gridTemplateRows: isActive ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div
+            id={panelId}
+            role="region"
+            aria-labelledby={headerId}
+            className={`pb-8 lg:pb-10 pl-[3.25rem] pr-2 lg:pr-[3.25rem] grid gap-6 lg:grid-cols-2 lg:gap-20 transition-opacity duration-300 ${
+              isActive ? "opacity-100 delay-150" : "opacity-0"
+            }`}
+          >
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
+              {capability.description}
+            </p>
+            <div>
+              <span className="block text-sm text-muted-foreground font-mono mb-3">Core capabilities</span>
+              <div className="flex flex-wrap gap-2.5">
+                {capability.coreCapabilities.map((item) => (
+                  <CorePill key={item} label={item} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CapabilitiesSectionAccordion() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="features"
+      ref={sectionRef}
+      className="relative py-24 lg:py-32 overflow-hidden"
+    >
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        {/* Header */}
+        <div className="relative mb-16 lg:mb-24">
+          <div className="grid lg:grid-cols-12 gap-8 items-end">
+            <div className="lg:col-span-7">
+              <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
+                <span className="w-12 h-px bg-foreground/30" />
+                Capabilities
+              </span>
+              <h2
+                className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] transition-all duration-1000 ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+              >
+                What we
+                <br />
+                <span className="text-muted-foreground">build</span>
+              </h2>
+            </div>
+            <div className="lg:col-span-5 lg:pb-4">
+              <p
+                className={`text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-200 ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                }`}
+              >
+                From AI and data to commerce, enterprise platforms, and cloud infrastructure, we design, integrate, and evolve the systems that drive modern businesses.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Full-width accordion */}
+        <div
+          className={`transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
+          {capabilities.map((capability, index) => (
+            <CapabilityRow
+              key={capability.title}
+              capability={capability}
+              index={index}
+              isActive={activeIndex === index}
+              onSelect={() => setActiveIndex(index)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
