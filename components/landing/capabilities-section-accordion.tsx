@@ -2,53 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Capability = {
-  title: string;
-  description: string;
-  coreCapabilities: string[];
-  image: string;
-};
-
-const capabilities: Capability[] = [
-  {
-    title: "AI & Autonomous Systems",
-    description:
-      "We embed intelligent agents and enterprise RAG into core workflows, automating decisions.",
-    coreCapabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2813%29-OQ2DiR3ElVsUg8kTvTL1kC5A3Q6maM.png",
-  },
-  {
-    title: "Data Intelligence & Integration",
-    description:
-      "We architect interoperability layers, composable APIs, and unified pipelines connecting your enterprise systems.",
-    coreCapabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/connection-KeJwWPQvn6l0a7C48tCARYtNEdC92H.png",
-  },
-  {
-    title: "Software & Commerce Engineering",
-    description:
-      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations.",
-    coreCapabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
-    image:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Upscaled%20Image%20%2812%29-ng3RrNnsPMJ5CrtOjcPTmhHg01W11q.png",
-  },
-  {
-    title: "Cloud & Platform Engineering",
-    description:
-      "We design and operate scalable cloud platforms that power your applications and AI workloads.",
-    coreCapabilities: ["Cloud Architecture & Infrastructure", "Platform Engineering & DevOps", "Observability, Security & Reliability"],
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/world-3i68QNWJwmO7W19ztZWbevAwJQHzYL.png",
-  },
-  {
-    title: "Strategy & Consulting",
-    description:
-      "We help organizations define technology roadmaps and turn complex transformation into executable plans.",
-    coreCapabilities: ["Digital Transformation Strategy", "Technology & Architecture Advisory", "Product & Platform Roadmaps"],
-    image: "/images/bridge.png",
-  },
-];
-
 function CorePill({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center gap-2 h-[32.4px] rounded-full border border-foreground/15 bg-foreground/[0.04] px-4 text-sm leading-none text-foreground/80 whitespace-nowrap">
@@ -58,7 +11,46 @@ function CorePill({ label }: { label: string }) {
   );
 }
 
-function AccordionItem({
+type Capability = {
+  title: string;
+  description: string;
+  coreCapabilities: string[];
+};
+
+const capabilities: Capability[] = [
+  {
+    title: "AI & Autonomous Systems",
+    description:
+      "We embed intelligent agents and enterprise RAG into core workflows, automating decisions.",
+    coreCapabilities: ["Autonomous Agents & Automation", "Enterprise Knowledge & RAG", "Multi-Agent Orchestration"],
+  },
+  {
+    title: "Data Intelligence & Integration",
+    description:
+      "We architect interoperability layers, composable APIs, and unified pipelines connecting your enterprise systems.",
+    coreCapabilities: ["System Interoperability & Integration", "Data Pipelines & Synchronization", "Composable & Event-Driven APIs"],
+  },
+  {
+    title: "Software & Commerce Engineering",
+    description:
+      "We engineer scalable web, mobile, and composable commerce platforms built around real business operations.",
+    coreCapabilities: ["Web & Mobile Platforms", "Headless & Composable Commerce", "Enterprise Applications & Portals"],
+  },
+  {
+    title: "Cloud & Platform Engineering",
+    description:
+      "We design and operate scalable cloud platforms that power your applications and AI workloads.",
+    coreCapabilities: ["Cloud Architecture & Infrastructure", "Platform Engineering & DevOps", "Observability, Security & Reliability"],
+  },
+  {
+    title: "Strategy & Consulting",
+    description:
+      "We help organizations define technology roadmaps and turn complex transformation into executable plans.",
+    coreCapabilities: ["Digital Transformation Strategy", "Technology & Architecture Advisory", "Product & Platform Roadmaps"],
+  },
+];
+
+function CapabilityRow({
   capability,
   index,
   isActive,
@@ -69,8 +61,8 @@ function AccordionItem({
   isActive: boolean;
   onSelect: () => void;
 }) {
-  const panelId = `capability-panel-${index}`;
-  const headerId = `capability-header-${index}`;
+  const panelId = `capabilities-panel-${index}`;
+  const headerId = `capabilities-header-${index}`;
 
   return (
     <div className={`border-t border-foreground/10 ${index === capabilities.length - 1 ? "border-b" : ""}`}>
@@ -80,17 +72,17 @@ function AccordionItem({
         onClick={onSelect}
         aria-expanded={isActive}
         aria-controls={panelId}
-        className="w-full flex items-center gap-5 py-6 text-left group"
+        className="w-full flex items-center gap-5 py-6 lg:py-8 text-left group"
       >
         <span
-          className={`font-mono text-sm transition-colors duration-300 ${
+          className={`w-8 shrink-0 font-mono text-sm transition-colors duration-300 ${
             isActive ? "text-[#3157D5]" : "text-muted-foreground"
           }`}
         >
           {String(index + 1).padStart(2, "0")}
         </span>
         <span
-          className={`flex-1 text-2xl lg:text-3xl font-display transition-colors duration-300 ${
+          className={`flex-1 text-2xl lg:text-4xl font-display transition-colors duration-300 ${
             isActive ? "text-foreground" : "text-foreground/50 group-hover:text-foreground/80"
           }`}
         >
@@ -122,26 +114,20 @@ function AccordionItem({
             id={panelId}
             role="region"
             aria-labelledby={headerId}
-            className={`pb-4 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
+            className={`pb-8 lg:pb-10 pl-[3.25rem] pr-2 lg:pr-[3.25rem] grid gap-6 lg:grid-cols-2 lg:gap-20 transition-opacity duration-300 ${
+              isActive ? "opacity-100 delay-150" : "opacity-0"
+            }`}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-4 lg:line-clamp-2">
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
               {capability.description}
             </p>
-            <span className="block text-sm text-muted-foreground font-mono mb-2">Core capabilities</span>
-            <div className="flex flex-wrap gap-2.5">
-              {capability.coreCapabilities.map((item) => (
-                <CorePill key={item} label={item} />
-              ))}
-            </div>
-
-            {/* Image follows the active item on mobile/tablet, directly under its content */}
-            <div className="lg:hidden mt-8 relative aspect-square w-full max-w-sm border border-foreground/10 bg-foreground/[0.02] p-6">
-              <img
-                src={capability.image || "/placeholder.svg"}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-contain p-6"
-              />
+            <div>
+              <span className="block text-sm text-muted-foreground font-mono mb-3">Core capabilities</span>
+              <div className="flex flex-wrap gap-2.5">
+                {capability.coreCapabilities.map((item) => (
+                  <CorePill key={item} label={item} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -150,10 +136,10 @@ function AccordionItem({
   );
 }
 
-export function FeaturesSectionAccordion() {
+export function CapabilitiesSectionAccordion() {
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -179,7 +165,7 @@ export function FeaturesSectionAccordion() {
           <div className="grid lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
               <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-                <span className="w-12 h-px bg-foreground/30" />
+                <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
                 Capabilities
               </span>
               <h2
@@ -204,41 +190,21 @@ export function FeaturesSectionAccordion() {
           </div>
         </div>
 
-        {/* Two-column layout: accordion + fixed square visual */}
+        {/* Full-width accordion */}
         <div
-          className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-start transition-all duration-700 ${
+          className={`transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
-          {/* Left: accordion */}
-          <div>
-            {capabilities.map((capability, index) => (
-              <AccordionItem
-                key={capability.title}
-                capability={capability}
-                index={index}
-                isActive={activeIndex === index}
-                onSelect={() => setActiveIndex(index)}
-              />
-            ))}
-          </div>
-
-          {/* Right: fixed square visual container, desktop only — image crossfades with active item */}
-          <div className="hidden lg:block sticky top-32">
-            <div className="relative aspect-square w-full border border-foreground/10 bg-foreground/[0.02] overflow-hidden">
-              {capabilities.map((capability, index) => (
-                <img
-                  key={capability.title}
-                  src={capability.image || "/placeholder.svg"}
-                  alt=""
-                  aria-hidden="true"
-                  className={`absolute inset-0 w-full h-full object-contain p-12 transition-opacity duration-700 ease-in-out ${
-                    activeIndex === index ? "opacity-100" : "opacity-0"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
+          {capabilities.map((capability, index) => (
+            <CapabilityRow
+              key={capability.title}
+              capability={capability}
+              index={index}
+              isActive={activeIndex === index}
+              onSelect={() => setActiveIndex(index)}
+            />
+          ))}
         </div>
       </div>
     </section>
