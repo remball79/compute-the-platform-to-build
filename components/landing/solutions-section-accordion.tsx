@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 
 type Solution = {
   title: string;
@@ -43,96 +44,12 @@ const solutions: Solution[] = [
   },
 ];
 
-function AccordionItem({
-  solution,
-  index,
-  isActive,
-  onSelect,
-}: {
-  solution: Solution;
-  index: number;
-  isActive: boolean;
-  onSelect: () => void;
-}) {
-  const panelId = `solution-panel-${index}`;
-  const headerId = `solution-header-${index}`;
-
-  return (
-    <div className={`border-t border-foreground/10 ${index === solutions.length - 1 ? "border-b" : ""}`}>
-      <button
-        id={headerId}
-        type="button"
-        onClick={onSelect}
-        aria-expanded={isActive}
-        aria-controls={panelId}
-        className="w-full flex items-center gap-5 py-7 text-left group"
-      >
-        <span
-          className={`font-mono text-sm transition-colors duration-300 ${
-            isActive ? "text-[#3157D5]" : "text-muted-foreground"
-          }`}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span
-          className={`flex-1 text-2xl lg:text-3xl font-display transition-colors duration-300 ${
-            isActive ? "text-foreground" : "text-foreground/50 group-hover:text-foreground/80"
-          }`}
-        >
-          {solution.title}
-        </span>
-        <span
-          className={`shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-300 ${
-            isActive ? "border-[#3157D5] text-[#3157D5]" : "border-foreground/20 text-foreground/40 group-hover:text-white"
-          }`}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-            <line x1="0" y1="6" x2="12" y2="6" stroke="currentColor" strokeWidth="1.2" />
-            <line
-              x1="6" y1="0" x2="6" y2="12"
-              stroke="currentColor"
-              strokeWidth="1.2"
-              className={`origin-center transition-transform duration-300 ${isActive ? "scale-y-0" : "scale-y-100"}`}
-            />
-          </svg>
-        </span>
-      </button>
-
-      <div
-        className="grid transition-[grid-template-rows] duration-500 ease-in-out"
-        style={{ gridTemplateRows: isActive ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <div
-            id={panelId}
-            role="region"
-            aria-labelledby={headerId}
-            className={`pb-6 pr-2 lg:pr-8 transition-opacity duration-300 ${isActive ? "opacity-100 delay-150" : "opacity-0"}`}
-          >
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg lg:line-clamp-2">
-              {solution.description}
-            </p>
-
-            {/* Image follows the active item on mobile/tablet, directly under its content */}
-            <div className="lg:hidden mt-8 relative aspect-square w-full max-w-sm border border-foreground/10 bg-foreground/[0.02] p-6">
-              <img
-                src={solution.image || "/placeholder.svg"}
-                alt=""
-                aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-contain p-6"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function SolutionsSectionAccordion() {
   const [isVisible, setIsVisible] = useState(false);
+  const [api, setApi] = useState<CarouselApi>();
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -145,6 +62,32 @@ export function SolutionsSectionAccordion() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const startAutoplay = useCallback(() => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    autoplayRef.current = setInterval(() => {
+      api?.scrollNext();
+    }, 6000);
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setActiveIndex(api.selectedScrollSnap());
+      startAutoplay();
+    };
+    onSelect();
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+    };
+  }, [api, startAutoplay]);
 
   return (
     <section
@@ -183,43 +126,122 @@ export function SolutionsSectionAccordion() {
           </div>
         </div>
 
-        {/* Two-column layout: accordion + fixed square visual */}
+        {/* Solutions carousel — 2 visible on desktop, 1 (with peek) on mobile */}
         <div
-          className={`grid lg:grid-cols-2 gap-12 lg:gap-20 lg:items-stretch transition-all duration-700 ${
+          className={`transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           }`}
         >
-          {/* Left: accordion */}
-          <div>
-            {solutions.map((solution, index) => (
-              <AccordionItem
-                key={solution.title}
-                solution={solution}
-                index={index}
-                isActive={activeIndex === index}
-                onSelect={() => setActiveIndex(index)}
-              />
-            ))}
-          </div>
-
-          {/* Right: fixed square visual container, desktop only — image crossfades with active item */}
-          <div className="hidden lg:block">
-            <div className="relative h-full w-full border border-foreground/10 bg-foreground/[0.02] overflow-hidden">
+          <Carousel setApi={setApi} opts={{ loop: true, align: "start" }}>
+            <CarouselContent className="-ml-4 lg:-ml-20">
               {solutions.map((solution, index) => (
-                <img
+                <CarouselItem key={solution.title} className="pl-4 lg:pl-20 basis-[85%] sm:basis-1/2">
+                  <button
+                    type="button"
+                    onClick={() => api?.scrollTo(index)}
+                    className={`relative block w-full aspect-[4/5] lg:aspect-[612/549] overflow-hidden text-left border bg-black transition-all duration-500 ${
+                      activeIndex === index
+                        ? "border-white/60"
+                        : "border-white/25 hover:border-[#203A84]"
+                    }`}
+                  >
+                    <img
+                      src={solution.image || "/placeholder.svg"}
+                      alt=""
+                      aria-hidden="true"
+                      className={`absolute inset-0 w-full h-full object-contain p-10 pb-40 transition-opacity duration-500 ${
+                        activeIndex === index ? "opacity-100" : "opacity-60"
+                      }`}
+                    />
+
+                    <div className="absolute inset-x-0 bottom-0 p-6 lg:p-10 bg-gradient-to-t from-black via-black/85 to-transparent">
+                      <div className="flex items-center gap-4 mb-4">
+                        <span
+                          className={`text-3xl font-display transition-colors duration-300 ${
+                            activeIndex === index ? "text-[#3157D5]" : "text-white/20"
+                          }`}
+                        >
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <div className="flex-1 h-px bg-white/10 overflow-hidden">
+                          {activeIndex === index && (
+                            <div key={activeIndex} className="h-full bg-[#3157D5]/50 animate-progress" />
+                          )}
+                        </div>
+                      </div>
+                      <h3 className="text-2xl lg:text-3xl font-display mb-2">{solution.title}</h3>
+                      <p
+                        className={`text-white/60 leading-relaxed transition-opacity duration-300 ${
+                          activeIndex === index ? "opacity-100" : "opacity-60"
+                        }`}
+                      >
+                        {solution.description}
+                      </p>
+                    </div>
+
+                    <div
+                      className={`absolute -bottom-px left-0 right-0 h-1 bg-[#3157D5] transition-transform duration-500 origin-left z-[2] ${
+                        activeIndex === index ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </button>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+
+          {/* Controls: dots + prev/next */}
+          <div className="flex items-center justify-between mt-8">
+            <div className="flex items-center gap-2">
+              {solutions.map((solution, index) => (
+                <button
                   key={solution.title}
-                  src={solution.image || "/placeholder.svg"}
-                  alt=""
-                  aria-hidden="true"
-                  className={`absolute inset-0 w-full h-full object-contain p-12 transition-opacity duration-700 ease-in-out ${
-                    activeIndex === index ? "opacity-100" : "opacity-0"
+                  type="button"
+                  onClick={() => api?.scrollTo(index)}
+                  aria-label={`Go to solution ${index + 1}: ${solution.title}`}
+                  aria-current={activeIndex === index}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeIndex === index ? "w-6 bg-[#3157D5]" : "w-1.5 bg-white/20 hover:bg-white/40"
                   }`}
                 />
               ))}
             </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => api?.scrollPrev()}
+                aria-label="Previous solution"
+                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-[#3157D5] transition-colors duration-300"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M9 2L3 7L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => api?.scrollNext()}
+                aria-label="Next solution"
+                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:text-white hover:border-[#3157D5] transition-colors duration-300"
+              >
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M5 2L11 7L5 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes progress {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+        .animate-progress {
+          animation: progress 6s linear forwards;
+        }
+      `}</style>
     </section>
   );
 }
