@@ -11,7 +11,7 @@ const navLinks = [
   { name: "Process",       href: "#how-it-works"  },
   { name: "Architecture",  href: "#infra"          },
   { name: "Integrations",  href: "#integrations"  },
-  { name: "Security",      href: "#security"      },
+  { name: "Philosophy",    href: "#philosophy"    },
 ];
 
 export function Navigation() {

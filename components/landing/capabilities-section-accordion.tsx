@@ -114,7 +114,7 @@ function CapabilityRow({
             id={panelId}
             role="region"
             aria-labelledby={headerId}
-            className={`pb-8 lg:pb-10 pl-[3.25rem] pr-2 lg:pr-[3.25rem] grid gap-6 lg:grid-cols-2 lg:gap-20 transition-opacity duration-300 ${
+            className={`pb-8 lg:pb-10 pl-0 md:pl-[3.25rem] pr-0 md:pr-2 lg:pr-[3.25rem] grid gap-10 lg:grid-cols-2 lg:gap-20 transition-opacity duration-300 ${
               isActive ? "opacity-100 delay-150" : "opacity-0"
             }`}
           >
