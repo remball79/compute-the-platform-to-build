@@ -1,40 +1,33 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Shield, Lock, Eye, FileCheck } from "lucide-react";
+import { BarChart3, Users, Layers, Target } from "lucide-react";
 
 const securityFeatures = [
   {
-    icon: Shield,
-    title: "Isolated environments",
-    description: "Every project runs in its own isolated environment, kept separate from other clients' systems.",
-    image: "/images/isolated.jpg",
+    icon: BarChart3,
+    title: "Business before technology",
+    description: "Every technology decision starts with the business outcome, not the platform.",
   },
   {
-    icon: Lock,
-    title: "Encryption in transit & at rest",
-    description: "Data is encrypted at rest and in transit across every system we build.",
-    image: "/images/encrypted.jpg",
+    icon: Users,
+    title: "Adoption over deployment",
+    description: "A system only creates value when people use it as part of how the business runs.",
   },
   {
-    icon: Eye,
-    title: "Full audit trails",
-    description: "Every action in the systems we deliver is logged and inspectable.",
-    image: "/images/audit.jpg",
+    icon: Layers,
+    title: "Systems that evolve",
+    description: "Modular, connected architectures that adapt as your business, technology, and AI evolve.",
   },
   {
-    icon: FileCheck,
-    title: "Permission boundaries",
-    description: "Access follows the principle of least privilege by design.",
-    image: "/images/permissions.jpg",
+    icon: Target,
+    title: "Impact over output",
+    description: "Success is measured in adoption, efficiency, and business impact, not features shipped.",
   },
 ];
 
-const certifications = ["SOC 2", "ISO 27001", "HIPAA", "GDPR"];
-
 export function SecuritySection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeFeature, setActiveFeature] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -49,15 +42,8 @@ export function SecuritySection() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % securityFeatures.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <section id="security" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
+    <section id="philosophy" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
       {/* Background accent removed */}
       
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
@@ -67,16 +53,17 @@ export function SecuritySection() {
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
             <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
-            Security
+            Philosophy
           </span>
           
           {/* Title — full width */}
-          <h2 className={`text-6xl md:text-7xl lg:text-[128px] font-display tracking-tight leading-[0.9] mb-12 transition-all duration-1000 ${
+          <h2 className={`text-4xl md:text-6xl lg:text-[5rem] xl:text-[6.5rem] 2xl:text-[112px] font-display tracking-tight leading-[0.95] mb-12 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}>
-            Autonomous,
-            <br />
-            <span className="text-muted-foreground">not uncontrolled.</span>
+            <span className="block">Go-Live tells you</span>
+            <span className="block">the technology works.</span>
+            <span className="block text-muted-foreground">Adoption tells you</span>
+            <span className="block text-muted-foreground">the transformation works.</span>
           </h2>
           
           {/* Description — below title */}
@@ -84,74 +71,25 @@ export function SecuritySection() {
             isVisible ? "opacity-100" : "opacity-0"
           }`}>
             <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-              Every system we build is powerful but constrained — enterprise-grade security by default, not an afterthought.
+              We believe transformation doesn&rsquo;t happen when technology goes live. It happens when people adopt it,
+              processes improve, and the business performs better.
             </p>
           </div>
         </div>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-12 gap-6">
-          {/* Large visual card */}
-          <div className={`lg:col-span-7 relative p-8 lg:p-12 border border-foreground/10 min-h-[400px] overflow-hidden transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}>
-            {/* Dynamic feature image with cross-fade — desktop only */}
-            <div className="absolute inset-0 pointer-events-none items-center justify-end hidden lg:flex">
-              {securityFeatures.map((feature, index) => (
-                <img
-                  key={feature.image}
-                  src={feature.image}
-                  alt={feature.title}
-                  className="absolute h-3/4 w-3/4 object-contain object-right transition-opacity duration-500"
-                  style={{ opacity: activeFeature === index ? 0.85 : 0 }}
-                />
-              ))}
-            </div>
-            
-            <div className="relative z-10">
-              <span className="font-mono text-sm text-muted-foreground">Active protection</span>
-              <div className="mt-8">
-                <span className="text-7xl lg:text-8xl font-display">0</span>
-                <span className="block text-muted-foreground mt-2">Security incidents this year</span>
-              </div>
-            </div>
-            
-            {/* Certification badges */}
-            <div className="absolute bottom-8 left-8 right-8 flex flex-wrap gap-2">
-              {certifications.map((cert, index) => (
-                <span
-                  key={cert}
-                  className={`px-3 py-1 border border-foreground/10 text-xs font-mono text-muted-foreground transition-all duration-500 ${
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                  }`}
-                  style={{ transitionDelay: `${index * 100 + 300}ms` }}
-                >
-                  {cert}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Feature cards stack */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
+        {/* Feature cards — 2 x 2 */}
+        <div>
+          <div className="grid md:grid-cols-2 gap-4">
             {securityFeatures.map((feature, index) => (
               <div
                 key={feature.title}
-                className={`p-6 border transition-all duration-500 cursor-default ${
-                  activeFeature === index 
-                    ? "border-foreground/30 bg-foreground/[0.04]" 
-                    : "border-foreground/10"
-                } ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
+                className={`group p-6 border border-foreground/10 hover:border-foreground/30 hover:bg-foreground/[0.04] transition-all duration-500 cursor-default ${
+                  isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+                }`}
                 style={{ transitionDelay: `${index * 80}ms` }}
-                onClick={() => setActiveFeature(index)}
-                onMouseEnter={() => setActiveFeature(index)}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`shrink-0 w-10 h-10 flex items-center justify-center border transition-colors ${
-                    activeFeature === index 
-                      ? "border-foreground bg-foreground text-background" 
-                      : "border-foreground/20"
-                  }`}>
+                  <div className="shrink-0 w-10 h-10 flex items-center justify-center border border-foreground/20 transition-colors group-hover:border-foreground group-hover:bg-foreground group-hover:text-background">
                     <feature.icon className="w-5 h-5" />
                   </div>
                   <div>
