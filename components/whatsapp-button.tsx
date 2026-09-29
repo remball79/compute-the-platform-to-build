@@ -1,9 +1,7 @@
-const PHONE = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+const PHONE = "12082489520";
 const MESSAGE = "Hi Dimotek, I'd like to talk about a project.";
 
 export function WhatsAppButton() {
-  if (!PHONE) return null;
-
   const href = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
 
   return (
