@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import type { LucideIcon } from "lucide-react";
+import { LogoImage } from "@/components/landing/logo-image";
 
-export type OrbitNode = { label: string; icon: LucideIcon; group?: number };
+export type OrbitNode = { label: string; logo: string; group?: number };
 
 type OrbitDiagramProps = {
   nodes: OrbitNode[];
@@ -40,6 +40,17 @@ function wireGeometry(index: number, total: number) {
     delay,
     arrival: delay + dur / 2,
   };
+}
+
+function NodeMark({ label, logo }: { label: string; logo: string }) {
+  return (
+    <LogoImage
+      label={label}
+      src={logo}
+      className="max-h-[58%] max-w-[62%] object-contain"
+      fallbackClassName="px-1 text-center text-[clamp(7px,1.5vw,11px)] font-semibold leading-tight text-neutral-900"
+    />
+  );
 }
 
 export function OrbitDiagram({ nodes, logoSrc, activeGroup, className = "" }: OrbitDiagramProps) {
@@ -208,7 +219,6 @@ export function OrbitDiagram({ nodes, logoSrc, activeGroup, className = "" }: Or
 
       {nodes.map((node, i) => {
         const wire = wires[i];
-        const Icon = node.icon;
         const timing = { animationDuration: `${wire.dur}s`, animationDelay: `${wire.arrival.toFixed(2)}s` };
         return (
           <div
@@ -227,7 +237,7 @@ export function OrbitDiagram({ nodes, logoSrc, activeGroup, className = "" }: Or
                 }`}
                 style={{ opacity: hasActive && !isActive(i) ? 0.78 : 1 }}
               >
-                <Icon className="h-1/2 w-1/2 text-neutral-900" strokeWidth={1.75} />
+                <NodeMark label={node.label} logo={node.logo} />
               </div>
             </div>
           </div>

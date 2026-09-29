@@ -1,43 +1,29 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import {
-  ArrowLeftRight,
-  BarChart3,
-  Building2,
-  Cloud,
-  Globe,
-  LayoutTemplate,
-  Package,
-  Plug,
-  Smartphone,
-  Sparkles,
-  Users,
-  Workflow,
-} from "lucide-react";
 import { OrbitDiagram, type OrbitNode } from "@/components/landing/orbit-diagram";
 
 const techCards = [
-  { label: "EXPERIENCE", title: "Commerce", description: "Web · Mobile" },
-  { label: "BUSINESS PLATFORMS", title: "ERP · CRM", description: "OMS · CMS" },
-  { label: "INTEGRATION", title: "APIs", description: "Middleware · ETL" },
-  { label: "DATA & CLOUD", title: "Analytics", description: "AI · Cloud" },
+  { label: "COMMERCE", platforms: "VTEX · Shopify · Swell" },
+  { label: "ERP · CRM", platforms: "Odoo · Microsoft 365 · HubSpot" },
+  { label: "AI & CLOUD", platforms: "OpenAI · Gemini · Google Cloud" },
+  { label: "DATA", platforms: "Snowflake · Databricks · Supabase" },
 ];
 
-// group = index of the matching card in techCards
+// group = index of the matching card in techCards; logo files live in /public/logos
 const orbitNodes: OrbitNode[] = [
-  { label: "Web", icon: Globe, group: 0 },
-  { label: "Mobile", icon: Smartphone, group: 0 },
-  { label: "ERP", icon: Building2, group: 1 },
-  { label: "CRM", icon: Users, group: 1 },
-  { label: "OMS", icon: Package, group: 1 },
-  { label: "CMS", icon: LayoutTemplate, group: 1 },
-  { label: "APIs", icon: Plug, group: 2 },
-  { label: "Middleware", icon: Workflow, group: 2 },
-  { label: "ETL", icon: ArrowLeftRight, group: 2 },
-  { label: "Analytics", icon: BarChart3, group: 3 },
-  { label: "AI", icon: Sparkles, group: 3 },
-  { label: "Cloud", icon: Cloud, group: 3 },
+  { label: "VTEX", logo: "/logos/vtex.png", group: 0 },
+  { label: "Shopify", logo: "/logos/shopify.png", group: 0 },
+  { label: "Swell", logo: "/logos/swell.svg", group: 0 },
+  { label: "Odoo", logo: "/logos/odoo.svg", group: 1 },
+  { label: "Microsoft 365", logo: "/logos/microsoft-365.png", group: 1 },
+  { label: "HubSpot", logo: "/logos/hubspot.png", group: 1 },
+  { label: "OpenAI", logo: "/logos/openai.png", group: 2 },
+  { label: "Gemini", logo: "/logos/gemini.png", group: 2 },
+  { label: "Google Cloud", logo: "/logos/google-cloud.png", group: 2 },
+  { label: "Snowflake", logo: "/logos/snowflake.png", group: 3 },
+  { label: "Databricks", logo: "/logos/databricks.png", group: 3 },
+  { label: "Supabase", logo: "/logos/supabase.svg", group: 3 },
 ];
 
 export function InfrastructureSection() {
@@ -99,13 +85,20 @@ export function InfrastructureSection() {
           </div>
         </div>
 
+        <span className={`mt-9 mb-6 flex items-center gap-4 text-sm font-mono text-muted-foreground transition-all duration-700 ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}>
+          <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#3157D5]" />
+          CORE PLATFORMS
+        </span>
+
         {/* Region list */}
-        <div className={`mt-20 grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
+        <div className={`grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-1000 delay-300 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}>
           {techCards.map((card, index) => (
             <div
-              key={card.title}
+              key={card.label}
               className={`p-6 border transition-all duration-300 cursor-default ${
                 activeRegion === index
                   ? "border-foreground/30 bg-foreground/[0.04]"
@@ -120,11 +113,16 @@ export function InfrastructureSection() {
                   {card.label}
                 </span>
               </div>
-              <span className="font-medium block mb-1">{card.title}</span>
-              <span className="text-sm text-muted-foreground">{card.description}</span>
+              <span className="font-medium block">{card.platforms}</span>
             </div>
           ))}
         </div>
+
+        <p className={`mt-6 text-sm font-mono text-muted-foreground transition-all duration-1000 delay-300 ${
+          isVisible ? "opacity-100" : "opacity-0"
+        }`}>
+          + any platform with an API
+        </p>
       </div>
     </section>
   );
