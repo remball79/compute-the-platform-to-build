@@ -43,13 +43,23 @@ export function InfrastructureSection() {
     return () => observer.disconnect();
   }, []);
 
+  // Hovering a card selects it and holds auto-rotation; leaving or tapping restarts the cycle.
+  const [paused, setPaused] = useState(false);
+  const [cycle, setCycle] = useState(0);
+
   useEffect(() => {
+    if (paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const interval = setInterval(() => {
       setActiveRegion((prev) => (prev + 1) % techCards.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [paused, cycle]);
+
+  const select = (index: number) => {
+    setActiveRegion(index);
+    setCycle((c) => c + 1);
+  };
 
   return (
     <section id="infra" ref={sectionRef} className="relative py-32 lg:py-40 overflow-hidden">
@@ -99,7 +109,16 @@ export function InfrastructureSection() {
           {techCards.map((card, index) => (
             <div
               key={card.label}
-              className={`p-6 border transition-all duration-300 cursor-default ${
+              onClick={() => select(index)}
+              onPointerEnter={(e) => {
+                if (e.pointerType !== "mouse") return;
+                setActiveRegion(index);
+                setPaused(true);
+              }}
+              onPointerLeave={(e) => {
+                if (e.pointerType === "mouse") setPaused(false);
+              }}
+              className={`p-6 border transition-all duration-300 cursor-pointer ${
                 activeRegion === index
                   ? "border-foreground/30 bg-foreground/[0.04]"
                   : "border-foreground/10"
